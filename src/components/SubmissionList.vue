@@ -20,7 +20,11 @@
             </div>      
         </div>
 
-        <submission-project-element />
+        <submission-project-element
+        v-for="project in this.$store.state.project.projects"
+        :key="project.idx"
+        :project="project"
+        />
 
         <div class="button-wrapper">
             <button 
@@ -35,8 +39,40 @@
 
 <script>
 import SubmissionProjectElement from './SubmissionProjectElement.vue'
+
 export default {
   components: { SubmissionProjectElement },
+  data: () => {
+      return {
+          totalPage: 0,
+          currentPage: 0,
+          projects: [],
+      }
+  },
+
+  methods: {
+        setProjects(currentPage){
+            this.$store.dispatch("fetchProjects", currentPage);
+        },
+
+        setPage(isNext){
+            if(isNext){
+                if(this.$store.state.project.current_page < this.$store.state.project.total_page){
+                    this.setProjects(this.$store.state.project.current_page + 1);
+                }
+            }else{
+                if(this.$store.state.project.current_page > 0){
+                    this.setProjects(this.$store.state.project.current_page - 1);
+                }
+            }
+        }
+  },
+
+  mounted() {
+    this.setProjects(this.currentPage);
+  }
+
+
 
 }
 </script>

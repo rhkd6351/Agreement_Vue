@@ -1,23 +1,33 @@
 <template>
   <div class="list-em-wrapper">
       <div class="list-em" 
-      :style="toggleOn ? {border: '2px solid gray'} : {border: '1px solid #DADADA'}">
+      :style="isSubmissionListUnclosed ? {border: '2px solid gray'} : {border: '1px solid #DADADA'}"
+      @click="toggleArrow">
           <div 
-          @click="toggle"
-          class="list-em-title"></div>
-          <div class="list-em-count"></div>
+          class="list-em-title">{{project.title}}</div>
+          <div class="list-em-count">{{project.submittee_count}}</div>
           <div class="list-em-date">-</div>
           <div class="list-em-name">-</div>
           <div class="list-em-download">-</div>
           <div class="list-em-etc">
             <arrow-button
-            :toggle="toggleOn"
-            @click="toggle"
+            :toggle="isSubmissionListUnclosed"
             />
           </div>
       </div>
 
-      <submission/>
+    
+      <div class="submission-wrappe"
+      v-if="isSubmissionListUnclosed">
+        <submission
+        v-for="submission in submissions"
+        :key="submission.idx"
+        :submission="submission"
+        :project="{
+            title: project.title
+            }" 
+        />
+      </div>
       <div class="division-line"></div>
   </div>
 </template>
@@ -25,9 +35,41 @@
 <script>
 import ArrowButton from './ArrowButton.vue'
 import Submission from './Submission.vue'
+import { getSubmissions } from '@/api/submissionAPI'
 export default {
-  components: { Submission, ArrowButton },
+    components: { Submission, ArrowButton },
 
+    data: () => {
+        return {
+            isSubmissionListUnclosed: false,
+            submissions: [],
+        }
+    },
+    props: {
+        project: {
+            submittee_count: String,
+            title: String,
+            name: String
+        },
+    },
+
+    methods: {
+        toggleArrow(){
+            this.isSubmissionListUnclosed = !this.isSubmissionListUnclosed;
+            if(this.isSubmissionListUnclosed){
+                this.getSubmission();
+            }
+        },
+
+        getSubmission(){
+            getSubmissions(this.project.name).then((res) => {
+                this.submissions = res.data.submittees;
+            }).catch((err) => {
+                // alert("알수없는 오류가 발생하였습니다.");
+            })
+        }
+
+    }
 }
 </script>
 
@@ -43,6 +85,7 @@ export default {
     border: 1px solid #DADADA;
     border-radius: 5px;
     margin-top: 10px;
+    cursor: pointer;
 
     &:hover{
         background-color: #eeeeee;
@@ -55,7 +98,6 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        cursor: pointer;
     }
     &-count{
         min-width: 80px;

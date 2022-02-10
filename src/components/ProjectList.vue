@@ -15,7 +15,7 @@
         </div>
 
         <project-element 
-        v-for="project in projects"
+        v-for="project in this.$store.state.project.projects"
         :key="project.idx"
         :project="project"
         />
@@ -32,49 +32,31 @@
 </template>
 
 <script>
-import { getProjects } from "@/api/projectAPI";
 import ProjectElement from './ProjectElement.vue';
 
 export default {
   components: { ProjectElement },
 
-    data: () => {
-        return {
-            totalPage: 0,
-            currentPage: 0,
-            projects: [],
-        }
-    },
-
     methods: {
-        setProjects(page){
-            getProjects(page).then((res) => {
-                this.projects.splice(0);
-                this.projects = res.data.projects
-                this.totalPage = res.data.total_page
-            }).catch((err) => {
-                console.log(err);
-            })
+        setProjects(currentPage){
+            this.$store.dispatch("fetchProjects", currentPage);
         },
 
         setPage(isNext){
             if(isNext){
-                if(this.currentPage < this.totalPage){
-                    this.currentPage += 1;
-                    this.setProjects(this.currentPage);
+                if(this.$store.state.project.current_page < this.$store.state.project.total_page){
+                    this.setProjects(this.$store.state.project.current_page + 1);
                 }
             }else{
-                if(this.currentPage > 0){
-                    this.currentPage -= 1;
-                    this.setProjects(this.currentPage);
+                if(this.$store.state.project.current_page > 0){
+                    this.setProjects(this.$store.state.project.current_page - 1);
                 }
-
             }
         }
     },
 
     mounted() {
-        this.setProjects(this.currentPage);
+        this.setProjects(0);
     }
 
 }

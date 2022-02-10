@@ -1,5 +1,9 @@
 <template>
-    <div class="pdf-drop-box">
+    <div class="pdf-drop-box"
+    @dragenter="onFileDragEnterHandler"
+    @dragleave="onFileDragLeaveHandler"
+    @drop="onFileDropHandler"
+    >
         <div class="drop-box-content">
             <div class="content-pull-left">
                 <div class="upload-image">
@@ -12,16 +16,37 @@
             </div>
 
             <div class="content-pull-right">
-                <button class="get-file-button">
+                <button class="get-file-button"
+                @click="onGetFileButtonClick">
                     문서 가져오기
                 </button>
+                <input
+                @change="onFileChangeHandler"
+                type="file" id="pdf-file" hidden/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { postProject } from '@/api/projectAPI'
 export default {
+
+    methods: {
+        onFileChangeHandler(event){
+            const file = event.target.files[0];
+            postProject(file).then((res) => {
+                //TODO list 새로고침
+            }).catch((err) => {
+                alert("파일 업로드에 실패하였습니다.");
+            })
+        },
+
+        onGetFileButtonClick(event){
+            let fileInput = document.getElementById("pdf-file");
+            fileInput.click();
+        }
+    }
 
 }
 </script>

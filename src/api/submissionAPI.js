@@ -7,14 +7,8 @@ const axiosService = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
 });
 
-function getProjects(page) {
-  return axiosService.get(`/api/projects?page=${page}`);
-}
-
-function postProject(file) {
-  let formData = new FormData();
-  formData.append("file_pdf", file);
-  return axiosService.post("/api/projects", formData);
+function getSubmissions(projectName) {
+  return axiosService.get(`/api/projects/${projectName}/submittees`);
 }
 
 axiosService.interceptors.request.use(
@@ -27,4 +21,4 @@ axiosService.interceptors.request.use(
   }
 );
 
-export { getProjects, postProject };
+export { getSubmissions };
