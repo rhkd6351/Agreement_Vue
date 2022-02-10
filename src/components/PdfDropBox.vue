@@ -2,7 +2,9 @@
     <div class="pdf-drop-box"
     @dragenter="onFileDragEnterHandler"
     @dragleave="onFileDragLeaveHandler"
+    @dragover.prevent
     @drop="onFileDropHandler"
+    :class="{'drag-enter': isDragEnter > 0}"
     >
         <div class="drop-box-content">
             <div class="content-pull-left">
@@ -32,20 +34,59 @@
 import { postProject } from '@/api/projectAPI'
 export default {
 
+    data: () => {
+        return {
+            isDragEnter: 0,
+        }
+    },
+
     methods: {
-        onFileChangeHandler(event){
-            const file = event.target.files[0];
+        postPdf(file){
             postProject(file).then((res) => {
-                //TODO list 새로고침
+                this.$store.dispatch("fetchProjects", 0);
             }).catch((err) => {
                 alert("파일 업로드에 실패하였습니다.");
             })
         },
 
+        onFileChangeHandler(event){
+            const file = event.target.files[0];
+            this.postPdf(file);
+        },
+
         onGetFileButtonClick(event){
             let fileInput = document.getElementById("pdf-file");
             fileInput.click();
+        },
+
+        onFileDragEnterHandler(event){
+            event.preventDefault();
+            this.isDragEnter += 1;
+        },
+
+        onFileDragLeaveHandler(event){
+            event.preventDefault();
+            this.isDragEnter -= 1;
+        },
+
+        onFileDropHandler(event){
+            event.preventDefault();
+            this.isDragEnter = 0;
+            if(event.dataTransfer.items.length > 1){
+                alert("1개의 파일만 등록이 가능합니다.")
+                return;
+            }
+
+            const file = event.dataTransfer.items[0].getAsFile();
+            if(file.type !=="application/pdf"){
+                alert("pdf 파일만 등록 가능합니다.")
+                return;
+            }
+
+            this.postPdf(file);
+
         }
+
     }
 
 }
@@ -101,6 +142,10 @@ export default {
             }
         }
     }
+}
+
+.drag-enter{
+    background-color: rgb(208, 208, 208);
 }
 
 </style>

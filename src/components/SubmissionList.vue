@@ -21,7 +21,7 @@
         </div>
 
         <submission-project-element
-        v-for="project in this.$store.state.project.projects"
+        v-for="project in projects"
         :key="project.idx"
         :project="project"
         />
@@ -42,27 +42,34 @@ import SubmissionProjectElement from './SubmissionProjectElement.vue'
 
 export default {
   components: { SubmissionProjectElement },
-  data: () => {
-      return {
-          totalPage: 0,
-          currentPage: 0,
-          projects: [],
-      }
-  },
+    computed: {
+        projects() {
+            return this.$store.state.project.projects;
+        },
+
+        currentPage() {
+            return this.$store.state.project.current_page;
+        },
+
+        totalPage() {
+            return this.$store.state.project.total_page;
+        }
+
+    },
 
   methods: {
-        setProjects(currentPage){
-            this.$store.dispatch("fetchProjects", currentPage);
+        setProjects(page){
+            this.$store.dispatch("fetchProjects", page);
         },
 
         setPage(isNext){
             if(isNext){
-                if(this.$store.state.project.current_page < this.$store.state.project.total_page){
-                    this.setProjects(this.$store.state.project.current_page + 1);
+                if(this.currentPage < this.totalPage){
+                    this.setProjects(this.currentPage + 1);
                 }
             }else{
-                if(this.$store.state.project.current_page > 0){
-                    this.setProjects(this.$store.state.project.current_page - 1);
+                if(this.currentPage > 0){
+                    this.setProjects(this.currentPage - 1);
                 }
             }
         }
