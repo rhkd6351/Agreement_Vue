@@ -17,6 +17,10 @@ function postProject(file) {
   return axiosService.post("/api/projects", formData);
 }
 
+function changeState(projectName, state) {
+  return axiosService.put(`/api/projects/${projectName}/state?state=${state}`);
+}
+
 axiosService.interceptors.request.use(
   (config) => {
     config.headers.Authorization = `Bearer ${cookies.get("token")}`;
@@ -27,4 +31,4 @@ axiosService.interceptors.request.use(
   }
 );
 
-export { getProjects, postProject };
+export { getProjects, postProject, changeState };

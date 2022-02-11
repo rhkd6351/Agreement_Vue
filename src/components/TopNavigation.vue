@@ -3,25 +3,21 @@
         <div class="top-nav-left">서비스 로고</div>
         <div class="top-nav-center"></div>
         <div 
-        v-if="isLoggedIn" class="top-nav-right">로그아웃</div>
+        v-if="this.$router.currentRoute.value.fullPath != '/login'"
+        @click="getLogout"
+        class="top-nav-right">로그아웃</div>
         <div v-else class="top-nav-right"></div>
       </div>
 </template>
 
 <script>
+import { removeToken } from "@/utils/auth"
 export default {
 
-    data: () => {
-        return {
-            isLoggedIn: false,
-        }
-    },
-
-    mounted() {
-        if(this.$router.currentRoute._value.fullPath == "/login")
-            this.isLoggedIn = false;
-        else{
-            this.isLoggedIn = true;
+    methods: {
+        getLogout(){
+            removeToken();
+            this.$router.push("/login");
         }
     }
 }
@@ -60,6 +56,7 @@ export default {
     width: 140px;
     color: white;
     font-size: 18px;
+    cursor: pointer;
     }
 }
 

@@ -19,5 +19,6 @@ export default {
     flex-grow: 1;
     background-color: #F3F3F3;
     min-width: 860px;
+    background-color: #F3F3F3;
 }
 </style>

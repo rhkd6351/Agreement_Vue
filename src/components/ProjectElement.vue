@@ -5,7 +5,9 @@
             :state="state"
             />
         </div>
-        <div class="project-em-title">
+        <div class="project-em-title"
+        @click="goProjectEditorView"
+        >
             {{title}}
         </div>
         <div class="project-em-submissions">
@@ -17,22 +19,36 @@
             :state="state"
             />
         </div>
-        <div class="project-em-etc">
+        <div class="project-em-etc"
+        @click="menuToggle"
+        >
             <svg width="2" height="10" viewBox="0 0 2 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="1" cy="1" r="1" fill="#5C5C5C"/>
                 <circle cx="1" cy="5" r="1" fill="#5C5C5C"/>
                 <circle cx="1" cy="9" r="1" fill="#5C5C5C"/>
             </svg>
+            <project-etc-menu 
+            v-if="isMenuOn"
+            :state="state"
+            :name="name"
+            />
         </div>
     </div>
   
 </template>
 
 <script>
+import ProjectEtcMenu from './ProjectEtcMenu.vue';
 import ProjectFunction from './ProjectFunction.vue';
 import ProjectState from './ProjectState.vue';
 export default {
-  components: { ProjectState, ProjectFunction },
+  components: { ProjectState, ProjectFunction, ProjectEtcMenu },
+
+    data: () => {
+        return {
+            isMenuOn: false,
+        }
+    },
 
     props: {
         project: Object,
@@ -49,6 +65,16 @@ export default {
             submissions,
             state,
             name
+        }
+    },
+
+    methods: {
+        menuToggle() {
+            this.isMenuOn = !this.isMenuOn;
+        },
+
+        goProjectEditorView(){
+            this.$router.push(`/project/${this.name}`);
         }
     }
     
@@ -85,14 +111,14 @@ export default {
         cursor: pointer;
     }
     &-submissions {
-        min-width: 60px;
+        width: 60px;
         line-height: 60px;
     }
     &-sharing {
-        min-width: 120px;
+        width: 120px;
     }
     &-etc {
-        min-width: 43px;
+        width: 43px;
         margin-top: 10px;
         cursor: pointer;
     }

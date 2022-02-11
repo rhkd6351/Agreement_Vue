@@ -18,4 +18,8 @@ function setToken(value) {
   cookies.set("token", value, "1d");
 }
 
-export { isLoggedIn, getToken, setToken };
+function removeToken(value) {
+  cookies.remove("token");
+}
+
+export { isLoggedIn, getToken, setToken, removeToken };

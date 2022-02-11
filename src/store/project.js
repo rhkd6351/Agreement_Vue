@@ -1,10 +1,16 @@
-import { getProjects } from "@/api/projectAPI";
+import { getProjects, changeState } from "@/api/projectAPI";
 
 const project = {
   state: {
     projects: [],
     total_page: 0,
     current_page: 0,
+  },
+
+  getters: {
+    getCurrentPage(state) {
+      return state.current_page;
+    },
   },
 
   mutations: {
@@ -17,10 +23,19 @@ const project = {
     SET_CURRENT_PAGE(state, currentPage) {
       state.current_page = currentPage;
     },
+
+    SET_PROJECT_STATE(state, { projectName, status }) {
+      for (let i = 0; i < state.projects.lenght; i++) {
+        if (state.projects[i].name == projectName) {
+          state.projects[i].state = status;
+        }
+      }
+    },
   },
 
   actions: {
     async fetchProjects(context, currentPage) {
+      if (currentPage == null) currentPage = context.getters.getCurrentPage;
       return new Promise((resolve, reject) => {
         getProjects(currentPage)
           .then((res) => {
@@ -28,6 +43,22 @@ const project = {
             context.commit("SET_TOTAL_PAGE", res.data.total_page);
             context.commit("SET_CURRENT_PAGE", currentPage);
             resolve(res.data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+    async changeState(context, { projectName, status }) {
+      return new Promise((resolve, reject) => {
+        changeState(projectName, status)
+          .then((res) => {
+            context.commit("SET_PROJECT_STATE", {
+              projectName: projectName,
+              status: status,
+            });
+            resolve(res);
           })
           .catch((err) => {
             reject(err);

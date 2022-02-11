@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "@/views/LoginView";
 import DashboardView from "@/views/DashboardView";
 import ProjectView from "@/views/ProjectView";
+import ProjectEditorView from "@/views/ProjectEditorView";
 import SubmissionView from "@/views/SubmissionView";
 import { isLoggedIn } from "@/utils/auth";
 
@@ -21,6 +22,7 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: DashboardView,
+    redirect: "/dashboard/project",
     meta: { requiresAuth: true },
     children: [
       {
@@ -37,8 +39,8 @@ const routes = [
   },
   {
     path: "/project/:projectName",
-    name: "About",
-    component: LoginView,
+    name: "ProjectEditor",
+    component: ProjectEditorView,
     meta: { requiresAuth: true },
   },
   {

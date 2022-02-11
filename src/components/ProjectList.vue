@@ -16,7 +16,7 @@
 
         <project-element 
         v-for="project in projects"
-        :key="project.idx"
+        :key="project.idx + Date.now()"
         :project="project"
         />
 

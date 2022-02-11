@@ -25,7 +25,7 @@ export default {
 
 .dashboard-wrapper{
     min-height: calc(100vh - 84px);
-    display: flex;
+    display: flex;  
     align-items: stretch;
 }
 
