@@ -21,6 +21,18 @@ function changeState(projectName, state) {
   return axiosService.put(`/api/projects/${projectName}/state?state=${state}`);
 }
 
+function getProject(projectName) {
+  return axiosService.get(`/api/projects/${projectName}`);
+}
+
+function saveObjects(projectName, objects) {
+  return axiosService.post(`/api/projects/${projectName}/objects`, {
+    project_object_texts: objects.text_objects,
+    project_object_checkboxes: objects.checkbox_objects,
+    project_object_signs: objects.sign_objects,
+  });
+}
+
 axiosService.interceptors.request.use(
   (config) => {
     config.headers.Authorization = `Bearer ${cookies.get("token")}`;
@@ -31,4 +43,4 @@ axiosService.interceptors.request.use(
   }
 );
 
-export { getProjects, postProject, changeState };
+export { getProjects, postProject, changeState, getProject, saveObjects };
