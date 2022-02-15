@@ -21,6 +21,10 @@ function changeState(projectName, state) {
   return axiosService.put(`/api/projects/${projectName}/state?state=${state}`);
 }
 
+function changeTitle(projectName, title) {
+  return axiosService.put(`/api/projects/${projectName}?title=${title}`);
+}
+
 function getProject(projectName) {
   return axiosService.get(`/api/projects/${projectName}`);
 }
@@ -43,4 +47,11 @@ axiosService.interceptors.request.use(
   }
 );
 
-export { getProjects, postProject, changeState, getProject, saveObjects };
+export {
+  getProjects,
+  postProject,
+  changeState,
+  getProject,
+  saveObjects,
+  changeTitle,
+};
