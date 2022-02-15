@@ -114,14 +114,6 @@ const editor = {
     },
 
     INITIALIZE_OBJECTS(state) {
-      // state = {
-      //   editing_project: {},
-      //   text_objects: [],
-      //   checkbox_objects: [],
-      //   sign_objects: [],
-      //   add_mode: "",
-      //   add_count: 0,
-      // };
       state.editing_project = {};
       state.text_objects = [];
       state.checkbox_objects = [];

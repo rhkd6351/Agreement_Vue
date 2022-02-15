@@ -11,6 +11,10 @@ function getSubmissions(projectName) {
   return axiosService.get(`/api/projects/${projectName}/submittees`);
 }
 
+function getSubmission(submissionName) {
+  return axiosService.get(`/api/projects/submittees/${submissionName}`);
+}
+
 axiosService.interceptors.request.use(
   (config) => {
     config.headers.Authorization = `Bearer ${cookies.get("token")}`;
