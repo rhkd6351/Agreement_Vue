@@ -1,7 +1,7 @@
 <template>
       <div id="top-nav">
         <div class="top-nav-left">서비스 로고</div>
-        <div class="top-nav-center">{{projectTitle}}</div>
+        <div class="top-nav-center">{{submissionTitle || projectTitle}}</div>
         <div 
         v-if="this.$router.currentRoute.value.fullPath != '/login'"
         @click="getLogout"
@@ -24,8 +24,14 @@ export default {
     computed: {
         projectTitle(){
             return this.$store.state.editor.editing_project.title
+        },
+
+        submissionTitle(){
+            if(this.$store.state.submission.submitted_project.pdf){
+                return this.$store.state.submission.submitted_project.pdf.original_name
+            }else return undefined;
         }
-    }
+    },
 }
 </script>
 

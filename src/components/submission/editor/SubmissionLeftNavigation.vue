@@ -1,8 +1,7 @@
 <template>
-  <div class="editor-left-navigation-wrapper">
-
+  <div class="submission-editor-left-navigation-wrapper">
       <div class="left-navigation-header">
-          제출받을 항목
+          제출받은 항목
       </div>
       <div class="left-navigation-content">
           <div class="object-list-box">
@@ -56,13 +55,13 @@ export default {
 
     computed: {
         textObjects(){
-            return this.$store.state.editor.text_objects
+            return this.$store.state.submission.text_objects
         },
         checkboxObjects(){
-            return this.$store.state.editor.checkbox_objects
+            return this.$store.state.submission.checkbox_objects
         },
         signObjects(){
-            return this.$store.state.editor.sign_objects
+            return this.$store.state.submission.sign_objects
         }
     },
 
@@ -83,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.editor-left-navigation-wrapper{
+.submission-editor-left-navigation-wrapper{
     width: 280px;
     min-height: calc(100% - 168px);
     border-right: 1px solid #767676;
