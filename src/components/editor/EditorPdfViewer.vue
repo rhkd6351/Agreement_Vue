@@ -65,10 +65,6 @@ import TextObject from './TextObject.vue'
 
 export default {
 
-    data: () => {
-        
-    },
-
     components: {
         pdf,
         TextObject,

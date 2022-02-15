@@ -1,4 +1,4 @@
-import { getProject, saveObjects } from "../api/projectAPI";
+import { getProject, saveObjects, changeTitle } from "../api/projectAPI";
 
 const editor = {
   state: {
@@ -84,6 +84,10 @@ const editor = {
           return;
         }
       }
+    },
+
+    UPDATE_PROJECT_TITLE(state, title) {
+      state.editing_project.title = title;
     },
 
     DELETE_TEXT_OBJECT(state, textObject) {
@@ -201,7 +205,12 @@ const editor = {
           sign_objects: context.state.sign_objects,
         })
           .then((res) => {
-            resolve(res);
+            changeTitle(
+              context.state.editing_project.name,
+              context.state.editing_project.title
+            ).then((res2) => {
+              resolve(res);
+            });
           })
           .catch((err) => {
             reject(err);
