@@ -19,6 +19,12 @@
 <script>
 export default {
 
+    methods: {
+        onCloseHandler(){
+            this.$router.push("/dashboard/submission")
+        }
+    }
+
 }
 </script>
 
