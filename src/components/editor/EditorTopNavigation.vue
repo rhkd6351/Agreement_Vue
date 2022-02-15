@@ -112,6 +112,11 @@ export default {
                     // background-color: #d5d5d5;
                     box-shadow:inset 1px 1px 1px 1px #5C5C5C;
                 }
+                &:active{
+                    transition-duration: 0.1s;
+                    // background-color: #d5d5d5;
+                    box-shadow:inset 5px 5px 5px 5px #5C5C5C;
+                }
             }
         }
     }

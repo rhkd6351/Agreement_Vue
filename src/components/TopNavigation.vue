@@ -1,7 +1,7 @@
 <template>
       <div id="top-nav">
         <div class="top-nav-left">서비스 로고</div>
-        <div class="top-nav-center"></div>
+        <div class="top-nav-center">{{projectTitle}}</div>
         <div 
         v-if="this.$router.currentRoute.value.fullPath != '/login'"
         @click="getLogout"
@@ -18,6 +18,12 @@ export default {
         getLogout(){
             removeToken();
             this.$router.push("/login");
+        }
+    },
+
+    computed: {
+        projectTitle(){
+            return this.$store.state.editor.editing_project.title
         }
     }
 }
@@ -50,6 +56,9 @@ export default {
     .top-nav-center{
     width: 280px;
     flex-grow: 1; 
+    font-size: 24px;
+    color: white;
+    font-weight: 700;
     }
 
     .top-nav-right{
@@ -57,6 +66,16 @@ export default {
     color: white;
     font-size: 18px;
     cursor: pointer;
+        &:hover{
+            transition-duration: 0.2s;
+            // background-color: #d5d5d5;
+            box-shadow:inset 3px 3px 3px 3px #000000;
+        }
+        &:active{
+            transition-duration: 0.1s;
+            // background-color: #d5d5d5;
+            box-shadow:inset 5px 5px 5px 5px #000000;
+        }
     }
 }
 

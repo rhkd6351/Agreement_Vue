@@ -88,9 +88,11 @@ export default {
     right: 0px;
     .x-button{
       position:absolute;
-      top: calc(50% - 5px);
-      left: calc(50% - 5px);
+      top: calc(50% - 20px);
+      left: calc(50% + 0px);
       z-index: 100;
+      width: 20px;
+      height: 20px;
       }
   }
 }

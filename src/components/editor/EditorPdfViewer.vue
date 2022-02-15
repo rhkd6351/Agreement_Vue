@@ -46,6 +46,7 @@
                         <checkbox-object
                         v-if="checkboxObject.page == (index + 1)"
                         :key="checkboxObject.local_idx"
+                        :prop-key="checkboxObject.local_idx"
                         :object="checkboxObject"
                         />
                     </div>
