@@ -4,6 +4,10 @@ import DashboardView from "@/views/DashboardView";
 import ProjectView from "@/views/ProjectView";
 import ProjectEditorView from "@/views/ProjectEditorView";
 import SubmissionView from "@/views/SubmissionView";
+import WriterEditingView from "@/views/WriterEditingView";
+import WriterLoginView from "@/views/WriterLoginView";
+import SubmissionEditingView from "@/views/SubmissionEditingView";
+import WriterView from "@/views/WriterView";
 import { isLoggedIn } from "@/utils/auth";
 
 const routes = [
@@ -37,18 +41,43 @@ const routes = [
       },
     ],
   },
+
   {
     path: "/project/:projectName",
     name: "ProjectEditor",
     component: ProjectEditorView,
     meta: { requiresAuth: true },
   },
+
   {
-    path: "/writer/submittee/:submitteeName",
-    name: "About",
-    component: LoginView,
+    path: "/submission/:submissionName",
+    name: "SubmissionEditing",
+    component: SubmissionEditingView,
     meta: { requiresAuth: true },
   },
+
+  {
+    path: "/writer/submission/:submissionName",
+    name: "WriterView",
+    meta: { requiresAuth: false },
+    redirect: (to) => ({
+      name: "WriterLogin",
+    }),
+    component: WriterView,
+    children: [
+      {
+        path: "login",
+        name: "WriterLogin",
+        component: WriterLoginView,
+      },
+      {
+        path: "edit",
+        name: "WriterEditing",
+        component: WriterEditingView,
+      },
+    ],
+  },
+
   {
     path: "/:catchAll(.*)",
     redirect: "/login",
