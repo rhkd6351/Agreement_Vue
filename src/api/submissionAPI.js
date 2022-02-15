@@ -25,4 +25,4 @@ axiosService.interceptors.request.use(
   }
 );
 
-export { getSubmissions };
+export { getSubmissions, getSubmission };

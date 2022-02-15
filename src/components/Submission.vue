@@ -8,8 +8,8 @@
         @click="downloadPdf"
         >다운로드</div>
         <div class="submission-em-etc"
-            @click="showWriterDocument" >
-            문서보기
+            @click="goSubmissionEditingView" >
+        문서보기
         </div>
     </div>
 </template>
@@ -20,6 +20,12 @@ export default {
     props: {
         submission: Object,
         project: Object,
+    },
+
+    methods: {
+        goSubmissionEditingView(){
+            this.$router.push(`/submission/${this.submission.name}`)
+        }
     },
 
     setup(props) {
