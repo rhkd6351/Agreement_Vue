@@ -71,6 +71,7 @@ export default {
         onEditClickHandler(e){
             e.stopPropagation();
             this.isEditMode = true;
+            this.tempName = this.object.name;
             this.$nextTick(() => {
                 const editbox = document.getElementById(`object_input_${this.object.local_idx}`);
                 editbox.focus();

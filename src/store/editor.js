@@ -8,7 +8,7 @@ const editor = {
     sign_objects: [],
     add_mode: "",
     add_count: 0,
-    sign_dialog_show
+    sign_dialog_show: false,
   },
 
   getters: {},
