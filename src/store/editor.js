@@ -1,4 +1,4 @@
-import { getProject, saveObjects, changeTitle } from "../api/projectAPI";
+import { getProject, getSubmitteeProject, saveObjects, changeTitle } from "../api/projectAPI";
 
 const editor = {
   state: {
@@ -132,6 +132,27 @@ const editor = {
     async fetchProject(context, projectName) {
       return new Promise((resolve, reject) => {
         getProject(projectName)
+          .then((res) => {
+            const data = res.data;
+            context.commit("SET_EDITING_PROJECT", data);
+            context.commit("SET_TEXT_OBJECTS", data.project_object_texts);
+            context.commit(
+              "SET_CHECKBOX_OBJECTS",
+              data.project_object_checkboxes
+            );
+            context.commit("SET_SIGN_OBJECTS", data.project_object_signs);
+
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+    async fetchSubmitterProject(context, projectName) {
+      return new Promise((resolve, reject) => {
+        getSubmitteeProject(projectName)
           .then((res) => {
             const data = res.data;
             context.commit("SET_EDITING_PROJECT", data);

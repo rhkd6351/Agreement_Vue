@@ -115,6 +115,7 @@ export default {
     display: inline-block;
     width: 85%;
     height: 40px;
+    line-height: 20px;
     margin-left: 7.5%;
     text-align: left;
     outline: 0 solid transparent;

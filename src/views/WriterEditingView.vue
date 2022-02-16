@@ -65,7 +65,7 @@ export default {
 
   mounted(){
     const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
-    this.$store.dispatch("fetchProject", projectName);
+    this.$store.dispatch("fetchSubmitterProject", projectName);
   },
 
   unmounted() {

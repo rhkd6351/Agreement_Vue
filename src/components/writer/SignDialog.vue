@@ -1,6 +1,6 @@
 <template>
-    <v-dialog width="500" persistent="persistent" v-model="signDialog">
-        <v-card class="sign-view-layout" width="500">
+    <div class="modal" v-if="signDialog">
+        <div class="sign-view-layout">
             <svg
                 @click="close()"
                 class="close-btn"
@@ -47,8 +47,8 @@
             <!--<v-btn class="btnMargin btnSetting" @click="toDataURL()">저장</v-btn>-->
             <br/>
             <br/>
-        </v-card>
-    </v-dialog>
+        </div>
+    </div>
 </template>
 <script>
     export default {
@@ -235,6 +235,15 @@
     }
 </script>
 <style scoped="scoped">
+    .modal { 
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        display: none; 
+        background-color: rgba(0, 0, 0, 0.4); 
+    }
     .close-btn {
         cursor: pointer;
         right: 0;
@@ -244,7 +253,7 @@
         color: lightskyblue;
     }
     .sign-view-layout {
-        height: 100%;
+        height: 30%;
         text-align: center;
     }
     .btn-margin {
