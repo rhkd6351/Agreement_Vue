@@ -22,6 +22,11 @@ export const objectMixin = {
       )[0].scrollTop;
     },
 
+    onMouseUpHandler(event) {
+      const quotient = this.shapeObject.height / 20;
+      this.shapeObject.height = `${20 * Math.round(quotient)}px`;
+    },
+
     onMouseEnterHandler(event) {
       this.isXButtonActivated = true;
     },
