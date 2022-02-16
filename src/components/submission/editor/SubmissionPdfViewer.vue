@@ -2,6 +2,7 @@
     <div class="editor-pdf-viewer-wrapper">
         <div class="render-box"
         v-if="submission.pdf != null"
+        id="render-box"
         >
             <div class="pdf-layer"
             v-for="(width, index) in submission.pdf.original_width"
@@ -50,6 +51,18 @@
                 </div>
             </div>
         </div>
+        <div class="view-control">
+            <div 
+            @click="onZoomOutClickHandler"
+            class="view-control-button">
+                <img src="@/images/minus.png" alt="">
+            </div>
+            <div
+            @click="onZoomInClickHandler"
+            class="view-control-button">
+                <img src="@/images/plus.png" alt="">
+            </div>
+        </div>
     </div>
   
 </template>
@@ -74,6 +87,13 @@ export default {
         SubmissionCheckboxObject
     },
 
+
+    data: () => {
+        return {
+            zoom: 100,
+        }
+    },
+
     computed: {
         textObjects(){
             return this.$store.state.submission.text_objects;
@@ -91,6 +111,23 @@ export default {
             return this.$store.state.submission.submitted_project;
         }
     },
+
+    methods: {
+        onZoomInClickHandler(){
+            if(this.zoom < 150){
+                this.zoom += 10;
+                let renderBox = document.getElementById("render-box");
+                renderBox.style.zoom = `${this.zoom}%`;
+            }
+        },
+        onZoomOutClickHandler(){
+            if(this.zoom > 50){
+                this.zoom -= 10;
+                let renderBox = document.getElementById("render-box");
+                renderBox.style.zoom = `${this.zoom}%`;
+            }
+        },
+    }
 
 }
 </script>
@@ -126,6 +163,37 @@ export default {
             left: 100px;
             background-color: black;
         }
+    }
+
+     .view-control{
+        position: fixed;
+        top: 185px;
+        right: 30px;
+        display: flex;
+        width: 88px;
+        border: 1px solid #767676;
+        border-radius: 5px;
+        background-color: white;
+        .view-control-button{
+            width: 44px;
+            height: 44px;
+            margin: auto;
+            text-align: center;
+            line-height: 44px;
+            cursor: pointer;
+            &:first-child{
+                    border-right: 1px solid #767676;
+            }
+            &:hover{
+                background-color: #d7d7d7;
+            }
+            img{
+                vertical-align:middle;
+                line-height: 100%;
+            }
+        }
+
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none
     }
 }
 
