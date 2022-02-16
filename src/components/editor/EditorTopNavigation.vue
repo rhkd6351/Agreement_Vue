@@ -2,7 +2,9 @@
   <div class="editor-top-navigation-wrapper">
       <div class="editor-nav-left"></div>
       <div class="editor-nav-center">
-          <div class="object-box">
+          <div class="object-box"
+          v-if="project.state == 1"
+          >
               <div class="object text-object"
               @click="onObjectAddHandler('text')"
               >
@@ -35,6 +37,7 @@
               @click="onCloseHandler"
               class="close-button control-button">닫기</div>
               <div 
+              v-if="project.state == 1"
               @click="onSaveHandler"
               class="complete-button control-button">완료</div>
           </div>
@@ -44,6 +47,12 @@
 
 <script>
 export default {
+
+    computed: {
+        project(){
+          return this.$store.state.editor.editing_project;
+      }
+    },
 
     methods: {
         onObjectAddHandler(mode){

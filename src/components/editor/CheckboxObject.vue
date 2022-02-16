@@ -1,7 +1,7 @@
 <template>
   <div class="checkbox-object-wrapper"
   :style="positionObject"
-  draggable="true"
+  :draggable="isEditable"
   @dragstart="onDragStartHandler"
   @dragend="onDragEndHandler"
   @mouseenter="onMouseEnterHandler"
@@ -18,6 +18,7 @@
 
       </div>
       <div class="button-wrapper"
+      v-if="isEditable"
       :style="{
         left: `${object.width - 15}px`,
         }">
@@ -37,7 +38,8 @@ export default {
 
   props: {
     object: Object,
-    propKey: Number
+    propKey: Number,
+    isEditable: Boolean
   },
 
   mounted(){
