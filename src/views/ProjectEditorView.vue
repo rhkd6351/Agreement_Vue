@@ -4,7 +4,8 @@
     :style="cursorStyle"
     @mousemove="onMouseMoveHandler"
     >
-        <editor-top-navigation/>
+        <editor-top-navigation
+        />
         <div class="editor-content-wrapper">
             <editor-left-navigation/>
             <editor-pdf-viewer/>
@@ -48,7 +49,7 @@ export default {
       addMode() {
         let addMode = this.$store.state.editor.add_mode;
         return addMode; 
-      }
+      },
   },
 
   methods: {

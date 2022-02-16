@@ -26,6 +26,7 @@
                         :key="textObject.local_idx"
                         :prop-key="textObject.local_idx"
                         :object="textObject"
+                        :isEditable="project.state==1"
                         />
                     </div>
 
@@ -37,6 +38,7 @@
                         :key="signObject.local_idx"
                         :prop-key="signObject.local_idx"
                         :object="signObject"
+                        :isEditable="project.state==1"
                         />
                     </div>
 
@@ -48,6 +50,7 @@
                         :key="checkboxObject.local_idx"
                         :prop-key="checkboxObject.local_idx"
                         :object="checkboxObject"
+                        :isEditable="project.state==1"
                         />
                     </div>
                 </div>
