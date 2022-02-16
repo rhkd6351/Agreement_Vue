@@ -135,6 +135,7 @@ export default {
         line-height: 40px;
         .object-input{
             height: 31px;
+            width: 180px;
             line-height: 31px;
             border: 1px solid #767676;
             border-radius: 2px;
