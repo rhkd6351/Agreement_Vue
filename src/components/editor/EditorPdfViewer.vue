@@ -13,6 +13,7 @@
                 <pdf 
                 :src="`https://junggam.click/api/projects/pdf/${project.pdf.name}`"
                 :page="index + 1"
+                @page-loaded="onPdfLoadHandler"
                 ></pdf>
 
 
@@ -97,6 +98,7 @@ export default {
         onObjectDropHandler(e){
             e.preventDefault();
         },
+
         onPdfClickHandler(page, event){
             const type = this.$store.state.editor.add_mode;
             const position = {
@@ -110,6 +112,10 @@ export default {
             })
 
             this.$store.commit("SET_ADD_MODE", "");
+        },
+
+        onPdfLoadHandler(e){
+            console.log("wow");
         }
     },
 
@@ -131,7 +137,7 @@ export default {
     flex-grow: 1;
 
     .render-box{
-        width: 800px;
+        width: 1050px;
         // height: calc(100% - 41px);
         margin: 41px auto 41px auto;
 
@@ -141,6 +147,7 @@ export default {
     .pdf-layer{
         position: relative;
         margin-bottom: 40px;
+        background-color: white;
 
         .object{
             z-index: 4;
