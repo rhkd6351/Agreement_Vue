@@ -1,7 +1,9 @@
 <template>
-    <div class="editor-pdf-viewer-wrapper">
+    <div class="editor-pdf-viewer-wrapper"
+    >
         <div class="render-box"
         v-if="project.pdf != null"
+        id="render-box"
         >
             <div class="pdf-layer"
             v-for="(width, index) in project.pdf.original_width"
@@ -57,6 +59,18 @@
                 </div>
             </div>
         </div>
+        <div class="view-control">
+                <div 
+                @click="onZoomOutClickHandler"
+                class="view-control-button">
+                    <img src="@/images/minus.png" alt="">
+                </div>
+                <div
+                @click="onZoomInClickHandler"
+                class="view-control-button">
+                    <img src="@/images/plus.png" alt="">
+                </div>
+        </div>
     </div>
   
 </template>
@@ -76,6 +90,11 @@ export default {
         CheckboxObject
     },
 
+    data: () => {
+        return {
+        }
+    },
+
     computed: {
         textObjects(){
             return this.$store.state.editor.text_objects;
@@ -91,10 +110,31 @@ export default {
 
         project() {
             return this.$store.state.editor.editing_project;
+        },
+        
+        zoom(){
+            return this.$store.state.editor.zoom;
         }
+
     },
 
     methods: {
+
+        onZoomInClickHandler(){
+            if(this.zoom < 150){
+                this.$store.commit("SET_ZOOM", this.zoom + 10);
+                let renderBox = document.getElementById("render-box");
+                renderBox.style.zoom = `${this.zoom}%`;
+            }
+        },
+        onZoomOutClickHandler(){
+            if(this.zoom > 50){
+                this.$store.commit("SET_ZOOM", this.zoom - 10);
+                let renderBox = document.getElementById("render-box");
+                renderBox.style.zoom = `${this.zoom}%`;
+            }
+        },
+
         onObjectDropHandler(e){
             e.preventDefault();
         },
@@ -120,7 +160,7 @@ export default {
     },
 
     async mounted() {
-        
+        this.$store.commit("SET_ZOOM", 100);
     }
 
 }
@@ -135,6 +175,7 @@ export default {
     height: calc(100vh - 168px);
     overflow: auto;
     flex-grow: 1;
+    position: relative;
 
     .render-box{
         width: 1050px;
@@ -158,6 +199,37 @@ export default {
             left: 100px;
             background-color: black;
         }
+    }
+
+    .view-control{
+        position: fixed;
+        top: 185px;
+        right: 30px;
+        display: flex;
+        width: 88px;
+        border: 1px solid #767676;
+        border-radius: 5px;
+        background-color: white;
+        .view-control-button{
+            width: 44px;
+            height: 44px;
+            margin: auto;
+            text-align: center;
+            line-height: 44px;
+            cursor: pointer;
+            &:first-child{
+                    border-right: 1px solid #767676;
+            }
+            &:hover{
+                background-color: #d7d7d7;
+            }
+            img{
+                vertical-align:middle;
+                line-height: 100%;
+            }
+        }
+
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none
     }
 }
 

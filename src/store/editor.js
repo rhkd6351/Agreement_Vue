@@ -9,11 +9,16 @@ const editor = {
     add_mode: "",
     add_count: 0,
     sign_dialog_show: false,
+    zoom: 100,
   },
 
   getters: {},
 
   mutations: {
+    SET_ZOOM(state, zoom) {
+      state.zoom = zoom;
+    },
+
     SET_EDITING_PROJECT(state, project) {
       state.editing_project = project;
     },
