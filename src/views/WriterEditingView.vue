@@ -9,16 +9,17 @@
             <writer-left-navigation/>
             <writer-pdf-viewer/>
         </div>
-
+        <sign-dialog :dialog="true"/>
     </div>
 </template>
 
 <script>
 import WriterLeftNavigation from '@/components/writer/WriterLeftNavigation.vue'
 import WriterTopNavigation from '@/components/writer/WriterTopNavigation.vue'
-import WriterPdfViewer from '../components/writer/WriterPdfViewer.vue'
+import WriterPdfViewer from '@/components/writer/WriterPdfViewer.vue'
+import SignDialog from '@/components/writer/SignDialog.vue'
 export default {
-  components: { WriterTopNavigation, WriterLeftNavigation, WriterPdfViewer },
+  components: { WriterTopNavigation, WriterLeftNavigation, WriterPdfViewer, SignDialog },
 
   data: () => {
       return {
@@ -63,7 +64,7 @@ export default {
   },
 
   mounted(){
-    const projectName = this.$router.currentRoute.value.fullPath.split("/")[2];
+    const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
     this.$store.dispatch("fetchProject", projectName);
   },
 

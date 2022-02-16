@@ -1,7 +1,7 @@
 <template >
     <div class="login-wrapper">
         <div class="login-center">
-            <div v-if="state == 0" class="login-stop-row">
+            <div v-if="state === 0" class="login-stop-row">
                 <h3>공유되지 않은 문서입니다.</h3>
             </div>
             <div v-else class="login-box">
@@ -30,15 +30,16 @@
             }
         },
         mounted(){
+            let self = this;
             getSubmitteeProject(this.$route.params.submissionName)
                 .then(function (response) {
                     console.log(response.data);
-                    this.state = response.data.state;
-                    this.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
+                    self.state = response.data.state;
+                    //self.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
                 })
                 .catch(function (error) {
                     console.log(error);
-                    this.state = 0;
+                    self.state = 0;
                 }
             );
         },

@@ -9,6 +9,7 @@
       :id="'object_' + this.propKey"
       :style="shapeObject"
       >
+        <input class="checkbox" type="checkbox" v-model="object.checked"/>
       </div>
   </div>
 </template>
@@ -46,7 +47,6 @@ export default {
   opacity: 0.999;
   top: 150px;
   left: 100px;
-  cursor: pointer;
 
   .object-name{
     color: #5c5c5c;
@@ -56,28 +56,20 @@ export default {
 
   .object-box{
     position: absolute;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
     width: 100px;
     height: 100px;
     background-color: #DADADA;
     border: 1px solid #767676;
-    background-image: url("../../images/checkbox.png");
     background-repeat: no-repeat;
-    background-position: center;
   }
-  .button-wrapper{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    .x-button{
-      position:absolute;
-      top: calc(50% - 20px);
-      left: calc(50% + 0px);
-      z-index: 100;
-      width: 20px;
-      height: 20px;
-      }
+
+  .checkbox{
+    margin-top: 15%;
+    width: 70%;
+    height: 70%;
   }
 }
 

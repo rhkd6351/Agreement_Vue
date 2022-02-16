@@ -9,6 +9,10 @@
       :id="'object_' + this.propKey"
       :style="shapeObject"
       >
+        <p v-bind:id="'sign-object-default-image 사인_'+object.local_idx">
+            서명
+        </p>
+        <img class="sign-image" v-bind:id="'사인_'+object.local_idx">
       </div>
   </div>
 </template>
@@ -54,11 +58,7 @@ export default {
         height: this.shapeObject.height
       })
     })
-  },
-  
-
-
-
+  }
 }
 </script>
 
@@ -68,7 +68,6 @@ export default {
   opacity: 0.999;
   top: 150px;
   left: 100px;
-  cursor: pointer;
 
   .object-name{
     color: #5c5c5c;
@@ -82,28 +81,12 @@ export default {
     height: 100px;
     background-color: #dadada41;
     border: 1px solid #767676;
-    resize: both;
     overflow: auto;
     background-image: url("../../images/sign.png");
     background-repeat: no-repeat;
     background-position: center;
     // border-radius: 1000px;
     // background-size: cover;
-  }
-  .button-wrapper{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    .x-button{
-      position:absolute;
-      top: calc(50% - 20px);
-      left: calc(50% + 0px);
-      z-index: 100;
-      width: 20px;
-      height: 20px;
-      }
   }
 }
 </style>
