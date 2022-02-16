@@ -106,7 +106,7 @@ export default {
     flex-grow: 1;
 
     .render-box{
-        width: 800px;
+        width: 1050px;
         // height: calc(100% - 41px);
         margin: 41px auto 41px auto;
 
