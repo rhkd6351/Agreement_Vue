@@ -25,6 +25,10 @@ function changeTitle(projectName, title) {
   return axiosService.put(`/api/projects/${projectName}?title=${title}`);
 }
 
+function getSubmitteeProject(projectName){
+  return axiosService.get(`/api/submittees/projects/${projectName}`);
+}
+
 function getProject(projectName) {
   return axiosService.get(`/api/projects/${projectName}`);
 }
@@ -54,4 +58,5 @@ export {
   getProject,
   saveObjects,
   changeTitle,
+  getSubmitteeProject
 };
