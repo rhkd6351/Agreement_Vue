@@ -10,12 +10,12 @@
                   <img src="@/images/text.png" alt="">
                   <span>({{textObjects.length}})</span>
               </div>
-              <div class="object-element">
-                  <li
+              <div class="object-element-list">
+                  <left-object-element
                   v-for="textObject in textObjects"
                   :key="textObject.local_idx"
-                  @click="onListEmClickHandler(textObject.local_idx, $event)"
-                  >{{textObject.name}}</li>
+                  :object="textObject"
+                  />
               </div>
           </div>
 
@@ -24,12 +24,12 @@
                   <img src="@/images/checkbox.png" alt="">
                   <span>({{checkboxObjects.length}})</span>
               </div>
-              <div class="object-element">
-                  <li
+              <div class="object-element-list">
+                  <left-object-element
                   v-for="checkboxObject in checkboxObjects"
                   :key="checkboxObject.local_idx"
-                  @click="onListEmClickHandler(checkboxObject.local_idx, $event)"
-                  >{{checkboxObject.name}}</li>
+                  :object="checkboxObject"
+                  />
               </div>
           </div>
 
@@ -38,12 +38,12 @@
                   <img src="@/images/sign.png" alt="">
                   <span>({{signObjects.length}})</span>
               </div>
-              <div class="object-element">
-                  <li
+              <div class="object-element-list">
+                  <left-object-element
                   v-for="signObject in signObjects"
                   :key="signObject.local_idx"
-                  @click="onListEmClickHandler(signObject.local_idx, $event)"
-                  >{{signObject.name}}</li>
+                  :object="signObject"
+                  />
               </div>
           </div>
       </div>
@@ -52,7 +52,9 @@
 </template>
 
 <script>
+import LeftObjectElement from './LeftObjectElement.vue'
 export default {
+  components: { LeftObjectElement },
 
     computed: {
         textObjects(){
@@ -65,19 +67,6 @@ export default {
             return this.$store.state.editor.sign_objects
         }
     },
-
-    methods: {
-        onListEmClickHandler(localIdx, event){
-            const selectedDOM = document.getElementById(`object_${localIdx}`);
-            selectedDOM.scrollIntoView({ behavior: 'smooth' });
-            selectedDOM.style.outline = "4px"
-            selectedDOM.style.outlineColor = "#58ACFA"
-            selectedDOM.style.outlineStyle = "solid"
-            setTimeout(() => {
-                selectedDOM.style.outline = "none"
-            }, 2000)
-        }
-    }
 
 }
 </script>
@@ -117,22 +106,9 @@ export default {
                 }
             }
 
-            .object-element{
+            .object-element-list{
                 height: 150px;
                 overflow: auto;
-                
-                li{
-                    font-weight: 700;
-                    color: #5C5C5C;
-                    margin-left: 20px;
-                    padding: 10px 5px;
-                    transition-duration: 0.2s;
-                    cursor:pointer;
-                    &:hover{
-                        transition-duration: 0.2s;
-                        background-color: #e8e8e8;
-                    }
-                }
             }
         }
     }
