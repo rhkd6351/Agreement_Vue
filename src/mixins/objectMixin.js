@@ -13,6 +13,12 @@ export const objectMixin = {
     };
   },
 
+  computed: {
+    zoom() {
+      return this.$store.state.editor.zoom;
+    },
+  },
+
   methods: {
     onDragStartHandler(event) {
       this.clickLeft = event.x;
@@ -52,9 +58,11 @@ export const objectMixin = {
     onDragEndHandler(event) {
       let gapX = event.x - this.clickLeft;
       let gapY = event.y - this.clickTop;
+
       let gapScroll =
         document.getElementsByClassName("editor-pdf-viewer-wrapper")[0]
           .scrollTop - this.scrollTop;
+
       let pdfHeight = window
         .getComputedStyle(
           document.getElementsByClassName("pdf-layer")[this.object.page - 1]
@@ -67,9 +75,11 @@ export const objectMixin = {
         .width.split("px")[0];
 
       const finalPositionX =
-        Number(this.positionObject.left.split("px")[0]) + gapX;
+        Number(this.positionObject.left.split("px")[0]) +
+        gapX * (100 / this.zoom);
       const finalPositionY =
-        Number(this.positionObject.top.split("px")[0]) + gapY + gapScroll;
+        Number(this.positionObject.top.split("px")[0]) +
+        (gapY + gapScroll) * (100 / this.zoom);
       if (
         finalPositionX < 0 ||
         finalPositionX + this.object.width > pdfWidth ||
