@@ -1,7 +1,7 @@
 <template>
   <div class="text-object-wrapper"
   :style="positionObject"
-  draggable="true"
+  :draggable="isEditable"
   @dragstart="onDragStartHandler"
   @dragend="onDragEndHandler"
   @mouseenter="onMouseEnterHandler"
@@ -12,11 +12,12 @@
       </div>
       <div class="object-box"
       :id="'object_' + this.propKey"
-      @change="onResizeHandler"
+      @mouseup="onMouseUpHandler"
       :style="shapeObject"
       >
       </div>
       <div class="button-wrapper"
+      v-if="isEditable"
       :style="{
         left: `${object.width - 15}px`,
         }">
@@ -37,7 +38,8 @@ export default {
 
   props: {
     object: Object,
-    propKey: Number
+    propKey: Number,
+    isEditable: Boolean
   },
 
   mounted(){
@@ -50,12 +52,14 @@ export default {
     this.shapeObject = {
       width: `${this.object.width}px`,
       height: `${this.object.height}px`,
+      resize: `${this.isEditable ? 'both' : ''}`
     }
 
     let ResizeSensor = require('css-element-queries/src/ResizeSensor');
     const box = document.getElementById('object_' + this.propKey);
     new ResizeSensor(box, (e) => {
       this.shapeObject = {
+        ...this.shapeObject,
         width: e.width,
         height: e.height
       }
@@ -92,7 +96,7 @@ export default {
     height: 100px;
     background-color: #DADADA;
     border: 1px solid #767676;
-    resize: both;
+    // resize: both;
     overflow: hidden;
     background-image: url('../../images/underline.png');
   }

@@ -1,17 +1,14 @@
 <template>
     <div class="editor-pdf-viewer-wrapper">
         <div class="render-box"
-        v-if="project.pdf != null"
+        v-if="submission.pdf != null"
         >
             <div class="pdf-layer"
-            v-for="(width, index) in project.pdf.original_width"
+            v-for="(width, index) in submission.pdf.original_width"
             :key="index"
-            @drop="onObjectDropHandler"
-            @dragover="onObjectDropHandler"
-            @click="onPdfClickHandler(index+1, $event)"
             >
-                <pdf 
-                :src="`https://junggam.click/api/projects/pdf/${project.pdf.name}`"
+                <pdf
+                :src="`https://junggam.click/api/projects/pdf/${submission.pdf.name}`"
                 :page="index + 1"
                 ></pdf>
 
@@ -21,36 +18,33 @@
                     <div class="object-divider"
                     v-for="textObject in textObjects"
                     :key="textObject.idx">
-                        <text-object
+                        <submission-text-object
                         v-if="textObject.page == (index + 1)"
                         :key="textObject.local_idx"
                         :prop-key="textObject.local_idx"
                         :object="textObject"
-                        :isEditable="project.state==1"
                         />
                     </div>
 
                     <div class="object-divider"
                     v-for="signObject in signObjects"
                     :key="signObject.idx">
-                        <sign-object
+                        <submission-sign-object
                         v-if="signObject.page == (index + 1)"
                         :key="signObject.local_idx"
                         :prop-key="signObject.local_idx"
                         :object="signObject"
-                        :isEditable="project.state==1"
                         />
                     </div>
 
                     <div class="object-divider"
                     v-for="checkboxObject in checkboxObjects"
                     :key="checkboxObject.idx">
-                        <checkbox-object
+                        <submission-checkbox-object
                         v-if="checkboxObject.page == (index + 1)"
                         :key="checkboxObject.local_idx"
                         :prop-key="checkboxObject.local_idx"
                         :object="checkboxObject"
-                        :isEditable="project.state==1"
                         />
                     </div>
                 </div>
@@ -62,60 +56,41 @@
 
 <script>
 import pdf from 'vue3-pdf'
-import CheckboxObject from './CheckboxObject.vue';
-import SignObject from './SignObject.vue';
-import TextObject from './TextObject.vue'
-
+import CheckboxObject from '@/components/editor/CheckboxObject.vue';
+import SubmissionSignObject from '@/components/submission/editor/SubmissionSignObject.vue';
+import SubmissionTextObject from './SubmissionTextObject.vue';
+import SubmissionCheckboxObject from './SubmissionCheckboxObject.vue';
 export default {
 
     components: {
         pdf,
-        TextObject,
-        SignObject,
-        CheckboxObject
+    },
+
+    components: {
+        pdf,
+        SubmissionSignObject,
+        CheckboxObject,
+        SubmissionTextObject,
+        SubmissionCheckboxObject
     },
 
     computed: {
         textObjects(){
-            return this.$store.state.editor.text_objects;
+            return this.$store.state.submission.text_objects;
         },
 
         checkboxObjects(){
-            return this.$store.state.editor.checkbox_objects;
+            return this.$store.state.submission.checkbox_objects;
         },
 
         signObjects(){
-            return this.$store.state.editor.sign_objects;
+            return this.$store.state.submission.sign_objects;
         },
 
-        project() {
-            return this.$store.state.editor.editing_project;
+        submission() {
+            return this.$store.state.submission.submitted_project;
         }
     },
-
-    methods: {
-        onObjectDropHandler(e){
-            e.preventDefault();
-        },
-        onPdfClickHandler(page, event){
-            const type = this.$store.state.editor.add_mode;
-            const position = {
-                x_position: event.offsetX,
-                y_position: event.offsetY,
-            }
-            this.$store.dispatch("addNewObject", {
-                type: type,
-                page: page,
-                position: position
-            })
-
-            this.$store.commit("SET_ADD_MODE", "");
-        }
-    },
-
-    async mounted() {
-        
-    }
 
 }
 </script>

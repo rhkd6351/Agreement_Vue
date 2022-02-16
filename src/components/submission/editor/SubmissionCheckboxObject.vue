@@ -1,32 +1,14 @@
 <template>
   <div class="checkbox-object-wrapper"
   :style="positionObject"
-  :draggable="isEditable"
-  @dragstart="onDragStartHandler"
-  @dragend="onDragEndHandler"
-  @mouseenter="onMouseEnterHandler"
-  @mouseleave="onMouseLeaveHandler"
   >
       <div class="object-name">
-        {{object.name}}
+        ㅤ
       </div>
       <div class="object-box"
       :id="'object_' + this.propKey"
-      @change="onResizeHandler"
       :style="shapeObject"
-      >
-
-      </div>
-      <div class="button-wrapper"
-      v-if="isEditable"
-      :style="{
-        left: `${object.width - 15}px`,
-        }">
-          <img
-          v-if="isXButtonActivated"
-          @click="xButtonClickHandler(object)"
-          class="x-button" src="@/images/xButton.png" alt="">
-      </div>
+      ></div>
   </div>
 </template>
 
@@ -38,12 +20,10 @@ export default {
 
   props: {
     object: Object,
-    propKey: Number,
-    isEditable: Boolean
+    propKey: Number
   },
 
   mounted(){
-
     this.positionObject = {
       top: `${this.object.y_position}px`,
       left: `${this.object.x_position}px`,
@@ -52,6 +32,7 @@ export default {
     this.shapeObject = {
       width: `${this.object.width}px`,
       height: `${this.object.height}px`,
+      backgroundImage: `url(${this.object.checked ? require('@/images/checkbox.png') : require('@/images/checkbox_false.png')})`,
     }
   }
 }
@@ -76,27 +57,15 @@ export default {
     position: absolute;
     width: 100px;
     height: 100px;
-    background-color: #DADADA;
-    border: 1px solid #767676;
-    background-image: url("../../images/checkbox.png");
+    
     background-repeat: no-repeat;
     background-position: center;
   }
-  .button-wrapper{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    .x-button{
-      position:absolute;
-      top: calc(50% - 20px);
-      left: calc(50% + 0px);
-      z-index: 100;
-      width: 20px;
-      height: 20px;
-      }
-  }
+
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 
 </style>

@@ -1,4 +1,4 @@
-import { getProject, saveObjects } from "../api/projectAPI";
+import { getProject, saveObjects, changeTitle } from "../api/projectAPI";
 
 const editor = {
   state: {
@@ -87,6 +87,10 @@ const editor = {
       }
     },
 
+    UPDATE_PROJECT_TITLE(state, title) {
+      state.editing_project.title = title;
+    },
+
     DELETE_TEXT_OBJECT(state, textObject) {
       for (let i = 0; i < state.text_objects.length; i++) {
         if (textObject.local_idx == state.text_objects[i].local_idx) {
@@ -115,14 +119,6 @@ const editor = {
     },
 
     INITIALIZE_OBJECTS(state) {
-      // state = {
-      //   editing_project: {},
-      //   text_objects: [],
-      //   checkbox_objects: [],
-      //   sign_objects: [],
-      //   add_mode: "",
-      //   add_count: 0,
-      // };
       state.editing_project = {};
       state.text_objects = [];
       state.checkbox_objects = [];
@@ -210,7 +206,12 @@ const editor = {
           sign_objects: context.state.sign_objects,
         })
           .then((res) => {
-            resolve(res);
+            changeTitle(
+              context.state.editing_project.name,
+              context.state.editing_project.title
+            ).then((res2) => {
+              resolve(res);
+            });
           })
           .catch((err) => {
             reject(err);
