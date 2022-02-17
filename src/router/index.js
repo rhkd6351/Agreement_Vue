@@ -5,6 +5,7 @@ import ProjectView from "@/views/ProjectView";
 import ProjectEditorView from "@/views/ProjectEditorView";
 import SubmissionView from "@/views/SubmissionView";
 import WriterEditingView from "@/views/WriterEditingView";
+import WriterOverView from "@/views/WriterOverView";
 import WriterLoginView from "@/views/WriterLoginView";
 import SubmissionEditingView from "@/views/SubmissionEditingView";
 import WriterView from "@/views/WriterView";
@@ -75,6 +76,11 @@ const routes = [
         name: "WriterEditing",
         component: WriterEditingView,
       },
+      {
+        path: "edit",
+        name: "WriterOver",
+        component: WriterOverView,
+      }
     ],
   },
 

@@ -51,6 +51,7 @@ export default {
 
         onFileChangeHandler(event){
             const file = event.target.files[0];
+            console.log(file);
             if(file.type !=="application/pdf"){
                 alert("pdf 파일만 등록 가능합니다.")
                 return;

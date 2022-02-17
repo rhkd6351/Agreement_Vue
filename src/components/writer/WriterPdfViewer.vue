@@ -7,7 +7,6 @@
             <div class="pdf-layer"
             v-for="(width, index) in project.pdf.original_width"
             :key="index"
-            @click="onPdfClickHandler(index+1, $event)"
             >
                 <pdf 
                 :src="`https://junggam.click/api/projects/pdf/${project.pdf.name}`"
@@ -119,20 +118,6 @@ export default {
                 let renderBox = document.getElementById("render-box");
                 renderBox.style.zoom = `${this.zoom}%`;
             }
-        },
-        onPdfClickHandler(page, event){
-            const type = this.$store.state.editor.add_mode;
-            const position = {
-                x_position: event.offsetX,
-                y_position: event.offsetY,
-            }
-            this.$store.dispatch("addNewObject", {
-                type: type,
-                page: page,
-                position: position
-            })
-
-            this.$store.commit("SET_ADD_MODE", "");
         }
     },
 

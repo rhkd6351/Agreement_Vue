@@ -11,7 +11,7 @@
       :style="shapeObject"
       >
         <img class="sign-object-default-image" v-bind:id="'sign-object-default-image'+object.local_idx">
-        <img class="sign-image" v-bind:id="'사인_'+object.local_idx">
+        <img class="sign-image" v-bind:id="object.name">
       </div>
   </div>
 </template>

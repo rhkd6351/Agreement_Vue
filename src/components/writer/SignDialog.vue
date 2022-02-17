@@ -23,7 +23,7 @@
                     width="51"
                     height="33"
                     viewBox="0 0 51 33"
-                    fill="none"
+                    fill="rgb(255, 255, 255)"
                     xmlns="http://www.w3.org/2000/svg">
                     <rect x="0.5" width="50" height="33" rx="5" fill="#767676"/>
                     <path
@@ -36,7 +36,7 @@
                     width="66"
                     height="33"
                     viewBox="0 0 66 33"
-                    fill="none"
+                    fill="rgb(255, 255, 255)"
                     xmlns="http://www.w3.org/2000/svg">
                     <rect x="0.5" width="65" height="33" rx="5" fill="#767676"/>
                     <path
@@ -201,8 +201,7 @@
             },
             toDataURL() {
                 let ImageID = this.signDialogData.local_idx;
-                console.log(ImageID);
-                let myImage = document.getElementById('사인_'+String(ImageID));
+                let myImage = document.getElementById(this.signDialogData.name);
                 let canvas = document.getElementById('drawcanvas');
                 let ImgText = document.getElementById("sign-object-default-image" + ImageID);
                 canvas.style.width = parseInt(this.signDialogData.width) * 2 + "px";
@@ -223,8 +222,7 @@
             },
             close() {
                 this.$store.state.editor.sign_dialog_show = false;
-                let ImageID = this.signDialogData.local_idx;
-                let myImage = document.getElementById('사인_'+String(ImageID));
+                let myImage = document.getElementById(this.signDialogData.name);
                 myImage.remove();
                 this.onClear();
             },
@@ -253,7 +251,8 @@
         float: right;
     }
     .btn-setting {
-        color: lightskyblue;
+        border: 0px solid #000;
+        background-color: white;
     }
     .sign-view-layout {
         top: 50%;
@@ -270,8 +269,9 @@
     }
     .drawcanvas {
         z-index: 2000;
-        border-radius: 3%;
+        border-radius: 10px; 
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
         position: relative;
-        border: 1px solid #000;
+        border: 0.5px solid #000;
     }
 </style>

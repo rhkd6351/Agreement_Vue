@@ -1,4 +1,4 @@
-import { getProject, getSubmitteeProject, saveObjects, changeTitle } from "../api/projectAPI";
+import { getProject, getSubmitteeProject, postSubmitteeProject, saveObjects, changeTitle } from "../api/projectAPI";
 
 const editor = {
   state: {
@@ -52,6 +52,33 @@ const editor = {
     SET_SIGN_DIALOG_DATA(state, signObject){
       state.sign_dialog_data = signObject;
     },
+
+    SET_TEXT_OBJECTS_FOR_WRITING(state, textObjects) {
+      textObjects.map((em) => {
+        state.add_count += 1;
+        em.local_idx = state.add_count;
+        em.context = "";
+      });
+      state.text_objects = textObjects;
+    },
+
+    SET_CHECKBOX_OBJECTS_FOR_WRITING(state, checkboxObjects) {
+      checkboxObjects.map((em) => {
+        state.add_count += 1;
+        em.local_idx = state.add_count;
+        em.checked = false;
+      });
+      state.checkbox_objects = checkboxObjects;
+    },
+
+    SET_SIGN_OBJECTS_FOR_WRITING(state, signObjects) {
+      signObjects.map((em) => {
+        state.add_count += 1;
+        em.local_idx = state.add_count;
+      });
+      state.sign_objects = signObjects;
+    },
+
     ADD_TEXT_OBJECT(state, textObject) {
       state.add_count += 1;
       textObject.local_idx = state.add_count;
@@ -165,12 +192,12 @@ const editor = {
           .then((res) => {
             const data = res.data;
             context.commit("SET_EDITING_PROJECT", data);
-            context.commit("SET_TEXT_OBJECTS", data.project_object_texts);
+            context.commit("SET_TEXT_OBJECTS_FOR_WRITING", data.project_object_texts);
             context.commit(
-              "SET_CHECKBOX_OBJECTS",
+              "SET_CHECKBOX_OBJECTS_FOR_WRITING",
               data.project_object_checkboxes
             );
-            context.commit("SET_SIGN_OBJECTS", data.project_object_signs);
+            context.commit("SET_SIGN_OBJECTS_FOR_WRITING", data.project_object_signs);
 
             resolve(data);
           })
@@ -248,6 +275,68 @@ const editor = {
           });
       });
     },
+    async saveSubmitteData(context, {submitter, files, filesName}) {
+      return await new Promise((resolve, reject) => {
+        let jsonData =
+        {
+          student_name: submitter.name,
+          student_id: submitter.school_id,
+          submittee_object_texts: context.state.text_objects,
+          submittee_object_checkboxes: context.state.checkbox_objects,
+          submittee_object_signs: context.state.sign_objects,
+        }
+        console.log(jsonData);
+        console.log(filesName);
+        console.log(context.state.editing_project.pdf.url);
+        let form = new FormData();
+        let jsonBlob = new Blob(
+          [JSON.stringify(jsonData)],
+          {type: 'application/json'}
+        );
+        form.append('data', jsonBlob);
+        for (let count = 0; count < files.length; count++) {
+          //이미지가 여러개이므로 각각의 이미지와 이미지의 이름을 잡아서 넣어준다.
+          let imageBlob = new Blob([files[count]], {type: 'image/png'});
+          form.append('sign_img', imageBlob, filesName[count] + '.png');
+        }
+        let blob = fetch("https://junggam.click" + context.state.editing_project.pdf.url).then(r => r.blob());
+        form.append(
+          'file_pdf',
+          blob,
+          context.state.editing_project.title + '.pdf'
+        );
+        /*
+        fetch("https://junggam.click" + context.state.editing_project.pdf.url) 
+          .then(r => r.blob())
+          .then(blob => {
+              let file_object = new Blob([blob], {type: 'application/pdf'});
+              console.log(file_object); //Output
+              form.append(
+                'file_pdf',
+                file_object,
+                context.state.editing_project.title + '.pdf'
+              );
+          }
+        );
+        */
+        /*
+        let pdf_file = new Blob(["https://junggam.click" + context.state.editing_project.pdf.url], {type: 'application/pdf'});
+        form.append(
+          'file_pdf',
+          pdf_file,
+          context.state.editing_project.title + '.pdf'
+        );
+        */
+        postSubmitteeProject(context.state.editing_project.name, form)
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            reject(err);
+          });
+      });
+    }
   },
 };
 

@@ -68,6 +68,7 @@ const submission = {
       state.add_count = 0;
     },
   },
+  
   actions: {
     async fetchSubmission(context, submissionName) {
       return new Promise((resolve, reject) => {
