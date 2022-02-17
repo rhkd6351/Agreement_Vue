@@ -51,11 +51,26 @@ export default {
         },
 
         onDeleteHandler() {
-            alert("미구현");
+            const response = confirm("정말 삭제하시겠습니까? 삭제시 복구가 불가능합니다.");
+            if(response){
+                this.$store.dispatch("changeState", {
+                    projectName: this.name,
+                    status: -1
+                }).then((res) => {
+                    this.$store.dispatch("fetchProjects", null);
+                }).catch((err) => {
+                    alert("알수없는 오류가 발생하였습니다.")
+                });
+            }
         },
 
         onDuplicateHandler(){
-            alert("미구현");
+            this.$store.dispatch("copyProject", this.name
+            ).then((res) => {
+                this.$store.dispatch("fetchProjects", null);
+            }).catch((err) => {
+                alert("알수없는 오류가 발생하였습니다.")
+            });
         }
     },
 

@@ -3,7 +3,8 @@
   :class="{
       'state-idle': state === 1,
       'state-share': state === 2,
-      'state-suspend': state === 3,}">
+      'state-suspend': state === 3,
+      'state-deleted': state === -1,}">
       <span>{{stateText}}</span>
   </div>
 </template>
@@ -25,6 +26,9 @@ export default {
                 break;
             case 3: 
                 stateText = "중단";
+                break;
+            case -1: 
+                stateText = "삭제";
                 break;
         }
 
@@ -64,6 +68,11 @@ export default {
     border: 1px solid transparent;
     color: white;
     background-color: #FF6363;
+}
+.state-deleted{
+    border: 1px solid transparent;
+    color: white;
+    background-color: #000000;
 }
 
 </style>
