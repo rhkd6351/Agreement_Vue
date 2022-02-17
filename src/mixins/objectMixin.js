@@ -56,6 +56,7 @@ export const objectMixin = {
     },
 
     onDragEndHandler(event) {
+      if (!this.isEditable) return;
       let gapX = event.x - this.clickLeft;
       let gapY = event.y - this.clickTop;
 

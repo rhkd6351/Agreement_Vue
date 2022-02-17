@@ -25,7 +25,7 @@ function changeTitle(projectName, title) {
   return axiosService.put(`/api/projects/${projectName}?title=${title}`);
 }
 
-function getSubmitteeProject(projectName){
+function getSubmitteeProject(projectName) {
   return axiosService.get(`/api/submittees/projects/${projectName}`);
 }
 
@@ -39,6 +39,10 @@ function saveObjects(projectName, objects) {
     project_object_checkboxes: objects.checkbox_objects,
     project_object_signs: objects.sign_objects,
   });
+}
+
+function copyProject(projectName) {
+  return axiosService.post(`/api/projects/${projectName}/copy`);
 }
 
 axiosService.interceptors.request.use(
@@ -58,5 +62,6 @@ export {
   getProject,
   saveObjects,
   changeTitle,
-  getSubmitteeProject
+  getSubmitteeProject,
+  copyProject,
 };
