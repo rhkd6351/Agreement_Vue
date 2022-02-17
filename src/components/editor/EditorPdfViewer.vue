@@ -15,7 +15,7 @@
                 <pdf 
                 :src="`https://junggam.click/api/projects/pdf/${project.pdf.name}`"
                 :page="index + 1"
-                @page-loaded="onPdfLoadHandler"
+                @page-loaded="pageLoaded"
                 ></pdf>
 
 
@@ -154,7 +154,8 @@ export default {
             this.$store.commit("SET_ADD_MODE", "");
         },
 
-        onPdfLoadHandler(e){
+        pageLoaded(){
+            // console.log(number);
             console.log("wow");
         }
     },

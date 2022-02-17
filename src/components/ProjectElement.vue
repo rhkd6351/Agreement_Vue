@@ -1,5 +1,7 @@
 <template>
-    <div class="project-em">
+    <div class="project-em"
+      :class="{'state-delete': state === -1}"
+      >
         <div class="project-em-state">
             <project-state
             :state="state"
@@ -70,11 +72,13 @@ export default {
 
     methods: {
         menuToggle() {
-            this.isMenuOn = !this.isMenuOn;
+            if(this.state != -1)
+                this.isMenuOn = !this.isMenuOn;
         },
 
         goProjectEditorView(){
-            this.$router.push(`/project/${this.name}`);
+            if(this.state != -1)
+                this.$router.push(`/project/${this.name}`);
         }
     }
     
@@ -122,5 +126,19 @@ export default {
         margin-top: 10px;
         cursor: pointer;
     }
+}
+.state-delete{
+    background-color: #b8b8b8;
+    cursor: not-allowed;
+    .project-em-title{
+        cursor: not-allowed;
+    }
+    .project-em-etc{
+        cursor: not-allowed;
+    }
+    &:hover{
+        background-color: #b8b8b8;
+    }
+
 }
 </style>
