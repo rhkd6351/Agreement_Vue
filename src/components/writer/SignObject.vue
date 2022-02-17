@@ -1,6 +1,7 @@
 <template>
   <div class="sign-object-wrapper"
   :style="positionObject"
+  @click="onSignDialogShowHandler(object)"
   >
       <div class="object-name">
         {{object.name}}
@@ -9,9 +10,7 @@
       :id="'object_' + this.propKey"
       :style="shapeObject"
       >
-        <p v-bind:id="'sign-object-default-image 사인_'+object.local_idx">
-            서명
-        </p>
+        <img class="sign-object-default-image" v-bind:id="'sign-object-default-image'+object.local_idx">
         <img class="sign-image" v-bind:id="'사인_'+object.local_idx">
       </div>
   </div>
@@ -23,13 +22,28 @@ export default {
 
   mixins: [objectMixin],
 
+  data: () => {
+    return{
+      showSign: false
+    }
+  },
+
+  computed: {
+    signDialogShow(){
+      return this.$store.state.editor.sign_dialog_show
+    }
+  },
+
   props: {
     object: Object,
     propKey: Number
   },
 
   methods: {
-
+    onSignDialogShowHandler(object){
+      this.$store.state.editor.sign_dialog_show = true;
+      this.$store.commit("SET_SIGN_DIALOG_DATA", object)
+    }
   },
 
   mounted(){
@@ -79,14 +93,16 @@ export default {
     position: absolute;
     width: 100px;
     height: 100px;
-    background-color: #dadada41;
     border: 1px solid #767676;
-    overflow: auto;
+    overflow: hidden;
+  }
+  .sign-object-default-image{ 
+    width: 100%;
+    height: 100%;
     background-image: url("../../images/sign.png");
     background-repeat: no-repeat;
     background-position: center;
-    // border-radius: 1000px;
-    // background-size: cover;
+    background-color: #dadada41;
   }
 }
 </style>

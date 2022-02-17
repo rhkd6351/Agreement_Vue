@@ -1,13 +1,12 @@
 <template>
     <div class="writer-pdf-viewer-wrapper">
         <div class="render-box"
+        id="render-box"
         v-if="project.pdf != null"
         >
             <div class="pdf-layer"
             v-for="(width, index) in project.pdf.original_width"
             :key="index"
-            @drop="onObjectDropHandler"
-            @dragover="onObjectDropHandler"
             @click="onPdfClickHandler(index+1, $event)"
             >
                 <pdf 
@@ -51,6 +50,18 @@
                 </div>
             </div>
         </div>
+        <div class="view-control">
+            <div 
+            @click="onZoomOutClickHandler"
+            class="view-control-button">
+                <img src="@/images/minus.png" alt="">
+            </div>
+            <div
+            @click="onZoomInClickHandler"
+            class="view-control-button">
+                <img src="@/images/plus.png" alt="">
+            </div>
+        </div>
     </div>
   
 </template>
@@ -64,7 +75,9 @@ import TextObject from './TextObject.vue'
 export default {
 
     data: () => {
-        
+        return{
+            zoom: 100
+        }
     },
 
     components: {
@@ -93,8 +106,19 @@ export default {
     },
 
     methods: {
-        onObjectDropHandler(e){
-            e.preventDefault();
+        onZoomInClickHandler(){
+            if(this.zoom < 150){
+                this.zoom = this.zoom + 10;
+                let renderBox = document.getElementById("render-box");
+                renderBox.style.zoom = `${this.zoom}%`;
+            }
+        },
+        onZoomOutClickHandler(){
+            if(this.zoom > 50){
+                this.zoom = this.zoom - 10;
+                let renderBox = document.getElementById("render-box");
+                renderBox.style.zoom = `${this.zoom}%`;
+            }
         },
         onPdfClickHandler(page, event){
             const type = this.$store.state.editor.add_mode;
@@ -151,6 +175,37 @@ export default {
             background-color: black;
         }
     }
+    .view-control{
+        position: fixed;
+        top: 185px;
+        right: 30px;
+        display: flex;
+        width: 88px;
+        border: 1px solid #767676;
+        border-radius: 5px;
+        background-color: white;
+        .view-control-button{
+            width: 44px;
+            height: 44px;
+            margin: auto;
+            text-align: center;
+            line-height: 44px;
+            cursor: pointer;
+            &:first-child{
+                    border-right: 1px solid #767676;
+            }
+            &:hover{
+                background-color: #d7d7d7;
+            }
+            img{
+                vertical-align:middle;
+                line-height: 100%;
+            }
+        }
+
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none
+    }
 }
+
 
 </style>

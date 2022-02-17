@@ -9,7 +9,7 @@
             <writer-left-navigation/>
             <writer-pdf-viewer/>
         </div>
-        <sign-dialog :dialog="true"/>
+        <sign-dialog v-if="signDialogShow"/>
     </div>
 </template>
 
@@ -26,6 +26,12 @@ export default {
           cursorStyle: {},
           imageStyle: {},
       }
+  },
+
+  computed: {
+    signDialogShow(){
+      return this.$store.state.editor.sign_dialog_show
+    }
   },
 
   methods: {

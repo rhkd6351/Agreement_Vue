@@ -1,5 +1,5 @@
 <template>
-    <div class="modal" v-if="signDialog">
+    <div class="modal">
         <div class="sign-view-layout">
             <svg
                 @click="close()"
@@ -58,19 +58,23 @@
         computed: {
             signDialog() {
                 return this.$store.state.editor.sign_dialog_show;
+            },
+            signDialogData() {
+                return this.$store.state.editor.sign_dialog_data;
             }
         },
-        updated() {
+        mounted() {
+            this.$nextTick();
+            let signDialogForm = document.getElementsByClassName('sign-view-layout')[0];
             let canvas = document.getElementById('drawcanvas');
-            // canvas.setAttribute("width",
-            // parseInt(this.$store.state.DialogData.ImageWidth) + "px")
             let makedWidth = 0;
             while(makedWidth < 300){
-                makedWidth = makedWidth + this.$store.state.DialogData.ImageWidth;
+                makedWidth = makedWidth + this.signDialogData.width;
             }
-            let point = makedWidth / this.$store.state.DialogData.ImageWidth;
+            let point = makedWidth / this.signDialogData.width;
+            signDialogForm.style.width = makedWidth + 100 + "px";
             canvas.style.width = makedWidth + "px";
-            canvas.style.height = parseInt(this.$store.state.DialogData.ImageHeight) * point + "px";
+            canvas.style.height = parseInt(this.signDialogData.height) * point + "px";
             this.InitEvent(canvas);
         },
         methods: {
@@ -159,10 +163,10 @@
                 let makedWidth = 0;
                 let makedHeight = 0;
                 while(makedWidth < 300){
-                    makedWidth = makedWidth + this.$store.state.DialogData.ImageWidth;
+                    makedWidth = makedWidth + this.signDialogData.width;
                 }
-                let point = makedWidth / this.$store.state.DialogData.ImageWidth;
-                makedHeight = parseInt(this.$store.state.DialogData.ImageHeight) * point;
+                let point = makedWidth / this.signDialogData.width;
+                makedHeight = parseInt(this.signDialogData.height) * point;
                 canvas.setAttribute(
                     "width",
                     makedWidth + "px"
@@ -196,17 +200,17 @@
                 canvas.addEventListener('touchend', this.ev_canvas, false);
             },
             toDataURL() {
-                let ImageID = this.$store.state.DialogData.ImageID;
+                let ImageID = this.signDialogData.local_idx;
                 console.log(ImageID);
-                let myImage = document.getElementById(String(ImageID));
+                let myImage = document.getElementById('사인_'+String(ImageID));
                 let canvas = document.getElementById('drawcanvas');
-                let ImgText = document.getElementById("sign-object-area-text " + ImageID);
-                canvas.style.width = parseInt(this.$store.state.DialogData.ImageWidth) * 2 + "px";
-                canvas.style.height = parseInt(this.$store.state.DialogData.ImageHeight) * 2 + "px";
+                let ImgText = document.getElementById("sign-object-default-image" + ImageID);
+                canvas.style.width = parseInt(this.signDialogData.width) * 2 + "px";
+                canvas.style.height = parseInt(this.signDialogData.height) * 2 + "px";
                 myImage.src = canvas.toDataURL();
                 myImage.style.zIndex = 4;
-                myImage.style.width = this.$store.state.DialogData.ImageWidth * 2  + "px";
-                myImage.style.height = this.$store.state.DialogData.ImageHeight * 2  + "px";
+                myImage.style.width = this.signDialogData.width + "px";
+                myImage.style.height = this.signDialogData.height  + "px";
                 //myImage.style.border = "2px";
                 myImage.style.borderColor = "black";
                 myImage.style.borderRadius = "8px";
@@ -215,12 +219,12 @@
                 this.onClear();
             },
             isOver() {
-                this.$store.state.DialogData.DialogShow = false;
+                this.$store.state.editor.sign_dialog_show = false;
             },
             close() {
-                this.$store.state.DialogData.DialogShow = false;
-                let ImageID = this.$store.state.DialogData.ImageID;
-                let myImage = document.getElementById(String(ImageID));
+                this.$store.state.editor.sign_dialog_show = false;
+                let ImageID = this.signDialogData.local_idx;
+                let myImage = document.getElementById('사인_'+String(ImageID));
                 myImage.remove();
                 this.onClear();
             },
@@ -241,7 +245,6 @@
         left: 0; 
         width: 100%; 
         height: 100%; 
-        display: none; 
         background-color: rgba(0, 0, 0, 0.4); 
     }
     .close-btn {
@@ -253,8 +256,14 @@
         color: lightskyblue;
     }
     .sign-view-layout {
-        height: 30%;
+        top: 50%;
+        left: 50%;
+        position: absolute;
         text-align: center;
+        background-color: rgb(255, 255, 255); 
+        border-radius: 10px; 
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
     }
     .btn-margin {
         margin-right: 2%;

@@ -9,6 +9,7 @@ const editor = {
     add_mode: "",
     add_count: 0,
     sign_dialog_show: false,
+    sign_dialog_data: "",
     zoom: 100,
   },
 
@@ -40,6 +41,7 @@ const editor = {
       });
       state.checkbox_objects = checkboxObjects;
     },
+
     SET_SIGN_OBJECTS(state, signObjects) {
       signObjects.map((em) => {
         state.add_count += 1;
@@ -47,7 +49,9 @@ const editor = {
       });
       state.sign_objects = signObjects;
     },
-
+    SET_SIGN_DIALOG_DATA(state, signObject){
+      state.sign_dialog_data = signObject;
+    },
     ADD_TEXT_OBJECT(state, textObject) {
       state.add_count += 1;
       textObject.local_idx = state.add_count;
