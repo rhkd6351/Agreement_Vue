@@ -32,6 +32,7 @@ export default {
     };
     if(this.$router.currentRoute.value.fullPath.split("/")[4] === "over"){
       let url = this.$store.state.submission.sign_url_save_file.find(e => e.signObjectName === this.object.name).url;
+      console.log(url);
       this.shapeObject = {
         width: `${this.object.width}px`,
         height: `${this.object.height}px`,

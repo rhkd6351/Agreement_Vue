@@ -9,23 +9,35 @@
             :value="projectTitle"
             @input="onProjectTitleChange"
             />
-            <div
-            v-else>
+            <div v-else-if="writeOverPath==='over'">
+                <span>
+                    <h5>{{submissionTitle}} 문서를 제출완료했습니다.</h5>
+                </span>
+            </div>
+            <div v-else>
                 {{submissionTitle}}
             </div>
-            </div>
-        <div 
-        v-if="this.$router.currentRoute.value.fullPath != '/login'"
-        @click="getLogout"
-        class="top-nav-right">로그아웃</div>
-        <div v-else class="top-nav-right"></div>
+        </div>
+        <template v-if="projectPath==='writer'">
+            <top-navigation-write-over v-if="writeOverPath==='over'"></top-navigation-write-over>
+        </template>
+        <template v-else>
+            <div 
+            v-if="this.$router.currentRoute.value.fullPath != '/login'"
+            @click="getLogout"
+            class="top-nav-right">로그아웃</div>
+            <div v-else class="top-nav-right"></div>
+        </template>
       </div>
 </template>
 
 <script>
+import TopNavigationWriteOver from "./TopNavigationWriteOver.vue"
 import { removeToken } from "@/utils/auth"
 export default {
-
+    components: {
+        TopNavigationWriteOver
+    },
     methods: {
         getLogout(){
             removeToken();
@@ -38,10 +50,15 @@ export default {
     },
 
     computed: {
-        projectTitle(){
-            return this.$store.state.editor.editing_project.title
+        projectPath(){
+            return this.$router.currentRoute.value.fullPath.split("/")[1];
         },
-
+        writeOverPath(){
+            return this.$router.currentRoute.value.fullPath.split("/")[4]
+        },
+        projectTitle(){
+            return this.$store.state.editor.editing_project.title;
+        },
         submissionTitle(){
             if(this.$store.state.submission.submitted_project.pdf){
                 return this.$store.state.submission.submitted_project.pdf.original_name

@@ -138,7 +138,7 @@ export default {
 .editor-pdf-viewer-wrapper{
     min-width: 860px;
     min-height: 480px;
-    height: calc(100vh - 168px);
+    height: calc(100vh - 84px);
     overflow: auto;
     flex-grow: 1;
 
