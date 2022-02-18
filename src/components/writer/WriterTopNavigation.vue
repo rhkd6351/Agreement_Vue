@@ -17,7 +17,12 @@
 </template>
 
 <script>
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 export default {
+    props: {
+        submissionName: String
+    },
     computed: {
         submitter(){
             return this.$store.state.submitter.submitter;
@@ -27,7 +32,14 @@ export default {
         onObjectAddHandler(mode){
             this.$store.commit("SET_ADD_MODE", mode);
         },
-
+        setPDF() {
+            let doc = new jsPDF('p', 'px', [300, 300]);
+            html2canvas(document.getElementsByClassName("pdf-layer")[0]).then(function (canvas) {
+                let imgData = canvas.toDataURL('image/png');
+                doc.addImage(imgData, 'PNG', 0, 300, 300, 300);
+            })
+            return doc;
+        },
         onSaveHandler(){
             const dataURLtoFile = (dataurl, fileName) => {
                 let arr = dataurl.split(','),
@@ -52,8 +64,10 @@ export default {
             console.log(files);
             //서명입력이 제대로 됐는지 확인한다.
             if (filesName.length === files.length) {
-                this.$store.dispatch("saveSubmitteData", {submitter: this.submitter, files: files, filesName: filesName}).then((res) => {
-                    this.$router.push("/writer/submission/" + this.submissionName + "/over")
+                const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
+                let pdfData = this.setPDF();
+                this.$store.dispatch("saveSubmitteData", {submitter: this.submitter, files: files, filesName: filesName, pdfData: pdfData}).then((res) => {
+                    this.$router.push("/writer/submission/" + projectName + "/over")
                 }).catch((err) => {
                     console.log(err);
                     alert("저장에 실패하였습니다.");

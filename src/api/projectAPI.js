@@ -41,6 +41,7 @@ function getProject(projectName) {
 }
 
 function saveObjects(projectName, objects) {
+  console.log(objects);
   return axiosService.post(`/api/projects/${projectName}/objects`, {
     project_object_texts: objects.text_objects,
     project_object_checkboxes: objects.checkbox_objects,

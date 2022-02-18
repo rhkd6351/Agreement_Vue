@@ -22,15 +22,15 @@ export default {
   components: { WriterTopNavigation, WriterLeftNavigation, WriterPdfViewer, SignDialog },
 
   data: () => {
-      return {
+      return { 
           cursorStyle: {},
-          imageStyle: {},
+          imageStyle: {}
       }
   },
 
   computed: {
     signDialogShow(){
-      return this.$store.state.editor.sign_dialog_show
+      return this.$store.state.submission.sign_dialog_show
     }
   },
 

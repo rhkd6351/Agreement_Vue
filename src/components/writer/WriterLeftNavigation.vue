@@ -56,13 +56,13 @@ export default {
 
     computed: {
         textObjects(){
-            return this.$store.state.editor.text_objects
+            return this.$store.state.submission.text_objects
         },
         checkboxObjects(){
-            return this.$store.state.editor.checkbox_objects
+            return this.$store.state.submission.checkbox_objects
         },
         signObjects(){
-            return this.$store.state.editor.sign_objects
+            return this.$store.state.submission.sign_objects
         }
     },
 

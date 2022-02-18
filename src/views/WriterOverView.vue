@@ -1,20 +1,20 @@
 <template>
     <div class="submission-over-wrapper">
         <div class="submission-over-content-wrapper">
-            <submission-pdf-viewer/>
+            <write-over-pdf-viewer/>
         </div>
     </div>
 </template>
 <script>
-import SubmissionPdfViewer from '../components/submission/editor/SubmissionPdfViewer.vue'
+import WriteOverPdfViewer from '../components/writer/WriteOverPdfViewer.vue'
 export default {
-  components: { SubmissionPdfViewer },
-
-
+  components: { WriteOverPdfViewer },
+  /*
   mounted(){
-    const submissionName = this.$router.currentRoute.value.fullPath.split("/")[2];
+    const submissionName = this.$router.currentRoute.value.fullPath.split("/")[3];
     this.$store.dispatch("fetchSubmission", submissionName);
   },
+  */
 }
 </script>
 <style lang="scss" scoped>

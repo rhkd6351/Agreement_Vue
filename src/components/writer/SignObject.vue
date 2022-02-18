@@ -28,12 +28,6 @@ export default {
     }
   },
 
-  computed: {
-    signDialogShow(){
-      return this.$store.state.editor.sign_dialog_show
-    }
-  },
-
   props: {
     object: Object,
     propKey: Number
@@ -41,8 +35,8 @@ export default {
 
   methods: {
     onSignDialogShowHandler(object){
-      this.$store.state.editor.sign_dialog_show = true;
-      this.$store.commit("SET_SIGN_DIALOG_DATA", object)
+      this.$store.state.submission.sign_dialog_show = true;
+      this.$store.commit("SET_SUBMISSION_SIGN_DIALOG_DATA", object)
     }
   },
 

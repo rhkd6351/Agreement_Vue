@@ -77,7 +77,7 @@ const routes = [
         component: WriterEditingView,
       },
       {
-        path: "edit",
+        path: "over",
         name: "WriterOver",
         component: WriterOverView,
       }

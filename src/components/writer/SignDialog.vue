@@ -57,10 +57,10 @@
         },
         computed: {
             signDialog() {
-                return this.$store.state.editor.sign_dialog_show;
+                return this.$store.state.submission.sign_dialog_show;
             },
             signDialogData() {
-                return this.$store.state.editor.sign_dialog_data;
+                return this.$store.state.submission.sign_dialog_data;
             }
         },
         mounted() {
@@ -218,10 +218,10 @@
                 this.onClear();
             },
             isOver() {
-                this.$store.state.editor.sign_dialog_show = false;
+                this.$store.state.submission.sign_dialog_show = false;
             },
             close() {
-                this.$store.state.editor.sign_dialog_show = false;
+                this.$store.state.submission.sign_dialog_show = false;
                 let myImage = document.getElementById(this.signDialogData.name);
                 myImage.remove();
                 this.onClear();

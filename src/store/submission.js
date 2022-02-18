@@ -1,4 +1,5 @@
 import { getSubmission } from "@/api/submissionAPI";
+import { getSubmitteeProject } from "../api/projectAPI";
 
 const submission = {
   state: {
@@ -7,6 +8,8 @@ const submission = {
     checkbox_objects: [],
     sign_objects: [],
     add_count: 0,
+    sign_dialog_show: false,
+    sign_dialog_data: "",
   },
 
   mutations: {
@@ -32,6 +35,39 @@ const submission = {
       signObjects.map((em) => {
         state.add_count += 1;
         em.local_idx = state.add_count;
+      });
+      state.sign_objects = signObjects;
+    },
+
+    SET_SUBMISSION_SIGN_DIALOG_DATA(state, signObject){
+      state.sign_dialog_data = signObject;
+    },
+
+    SET_SUBMISSION_TEXT_OBJECTS_FOR_WRITING(state, textObjects) {
+      textObjects.map((em) => {
+        state.add_count += 1;
+        em.local_idx = state.add_count;
+        delete em.project;
+        em.content = "";
+      });
+      state.text_objects = textObjects;
+    },
+
+    SET_SUBMISSION_CHECKBOX_OBJECTS_FOR_WRITING(state, checkboxObjects) {
+      checkboxObjects.map((em) => {
+        state.add_count += 1;
+        em.local_idx = state.add_count;
+        delete em.project;
+        em.checked = false;
+      });
+      state.checkbox_objects = checkboxObjects;
+    },
+
+    SET_SUBMISSION_SIGN_OBJECTS_FOR_WRITING(state, signObjects) {
+      signObjects.map((em) => {
+        state.add_count += 1;
+        em.local_idx = state.add_count;
+        delete em.project;
       });
       state.sign_objects = signObjects;
     },
@@ -70,6 +106,25 @@ const submission = {
   },
   
   actions: {
+    async fetchSubmitterProject(context, projectName) {
+      return new Promise((resolve, reject) => {
+        getSubmitteeProject(projectName)
+          .then((res) => {
+            const data = res.data;
+            context.commit("SET_SUBMITTED_PROJECT", data);
+            context.commit("SET_SUBMISSION_TEXT_OBJECTS_FOR_WRITING", data.project_object_texts);
+            context.commit(
+              "SET_SUBMISSION_CHECKBOX_OBJECTS_FOR_WRITING",
+              data.project_object_checkboxes
+            );
+            context.commit("SET_SUBMISSION_SIGN_OBJECTS_FOR_WRITING", data.project_object_signs);
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
     async fetchSubmission(context, submissionName) {
       return new Promise((resolve, reject) => {
         getSubmission(submissionName)

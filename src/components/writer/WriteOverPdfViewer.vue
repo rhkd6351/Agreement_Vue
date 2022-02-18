@@ -1,23 +1,25 @@
 <template>
-    <div class="writer-pdf-viewer-wrapper">
+    <div class="editor-pdf-viewer-wrapper">
         <div class="render-box"
-        id="render-box"
         v-if="project.pdf != null"
+        id="render-box"
         >
             <div class="pdf-layer"
             v-for="(width, index) in project.pdf.original_width"
             :key="index"
             >
-                <pdf 
+                <pdf
                 :src="`https://junggam.click/api/projects/pdf/${project.pdf.name}`"
                 :page="index + 1"
                 ></pdf>
+
+
                 <div class="object-layer">
                     
                     <div class="object-divider"
                     v-for="textObject in textObjects"
                     :key="textObject.idx">
-                        <text-object
+                        <submission-text-object
                         v-if="textObject.page == (index + 1)"
                         :key="textObject.local_idx"
                         :prop-key="textObject.local_idx"
@@ -28,7 +30,7 @@
                     <div class="object-divider"
                     v-for="signObject in signObjects"
                     :key="signObject.idx">
-                        <sign-object
+                        <submission-sign-object
                         v-if="signObject.page == (index + 1)"
                         :key="signObject.local_idx"
                         :prop-key="signObject.local_idx"
@@ -39,7 +41,7 @@
                     <div class="object-divider"
                     v-for="checkboxObject in checkboxObjects"
                     :key="checkboxObject.idx">
-                        <checkbox-object
+                        <submission-checkbox-object
                         v-if="checkboxObject.page == (index + 1)"
                         :key="checkboxObject.local_idx"
                         :prop-key="checkboxObject.local_idx"
@@ -67,23 +69,29 @@
 
 <script>
 import pdf from 'vue3-pdf'
-import CheckboxObject from './CheckboxObject.vue';
-import SignObject from './SignObject.vue';
-import TextObject from './TextObject.vue'
-
+import CheckboxObject from '@/components/editor/CheckboxObject.vue';
+import SubmissionSignObject from '@/components/submission/editor/SubmissionSignObject.vue';
+import SubmissionTextObject from '@/components/submission/editor/SubmissionTextObject.vue';
+import SubmissionCheckboxObject from '@/components/submission/editor/SubmissionCheckboxObject.vue';
 export default {
 
-    data: () => {
-        return{
-            zoom: 100
-        }
+    components: {
+        pdf,
     },
 
     components: {
         pdf,
-        TextObject,
-        SignObject,
-        CheckboxObject
+        SubmissionSignObject,
+        CheckboxObject,
+        SubmissionTextObject,
+        SubmissionCheckboxObject
+    },
+
+
+    data: () => {
+        return {
+            zoom: 100,
+        }
     },
 
     computed: {
@@ -107,22 +115,18 @@ export default {
     methods: {
         onZoomInClickHandler(){
             if(this.zoom < 150){
-                this.zoom = this.zoom + 10;
+                this.zoom += 10;
                 let renderBox = document.getElementById("render-box");
                 renderBox.style.zoom = `${this.zoom}%`;
             }
         },
         onZoomOutClickHandler(){
             if(this.zoom > 50){
-                this.zoom = this.zoom - 10;
+                this.zoom -= 10;
                 let renderBox = document.getElementById("render-box");
                 renderBox.style.zoom = `${this.zoom}%`;
             }
-        }
-    },
-
-    async mounted() {
-        
+        },
     }
 
 }
@@ -131,7 +135,7 @@ export default {
 <style lang="scss" scoped>
 
 
-.writer-pdf-viewer-wrapper{
+.editor-pdf-viewer-wrapper{
     min-width: 860px;
     min-height: 480px;
     height: calc(100vh - 168px);
@@ -139,7 +143,7 @@ export default {
     flex-grow: 1;
 
     .render-box{
-        width: 800px;
+        width: 1050px;
         // height: calc(100% - 41px);
         margin: 41px auto 41px auto;
 
@@ -160,7 +164,8 @@ export default {
             background-color: black;
         }
     }
-    .view-control{
+
+     .view-control{
         position: fixed;
         top: 185px;
         right: 30px;
@@ -191,6 +196,5 @@ export default {
         -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none
     }
 }
-
 
 </style>
