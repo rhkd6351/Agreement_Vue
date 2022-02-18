@@ -41,16 +41,14 @@ export default {
   },
 
   mounted(){
-
-    this.positionObject = {
-      top: `${this.object.y_position}px`,
-      left: `${this.object.x_position}px`,
-    };
-
     this.shapeObject = {
       width: `${this.object.width}px`,
       height: `${this.object.height}px`,
     }
+    this.positionObject = {
+      top: `${this.object.y_position}px`,
+      left: `${this.object.x_position}px`,
+    };
 
     let ResizeSensor = require('css-element-queries/src/ResizeSensor');
     const box = document.getElementById('object_' + this.propKey);

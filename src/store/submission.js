@@ -7,6 +7,7 @@ const submission = {
     text_objects: [],
     checkbox_objects: [],
     sign_objects: [],
+    sign_url_save_file: [],
     add_count: 0,
     sign_dialog_show: false,
     sign_dialog_data: "",
@@ -24,6 +25,7 @@ const submission = {
       });
       state.text_objects = textObjects;
     },
+
     SET_SUBMISSION_CHECKBOX_OBJECTS(state, checkboxObjects) {
       checkboxObjects.map((em) => {
         state.add_count += 1;
@@ -31,6 +33,7 @@ const submission = {
       });
       state.checkbox_objects = checkboxObjects;
     },
+
     SET_SUBMISSION_SIGN_OBJECTS(state, signObjects) {
       signObjects.map((em) => {
         state.add_count += 1;
@@ -41,6 +44,14 @@ const submission = {
 
     SET_SUBMISSION_SIGN_DIALOG_DATA(state, signObject){
       state.sign_dialog_data = signObject;
+    },
+
+    SAVE_SUBMISSION_SIGN_URL_DATA(state, {signObjectName, url}){
+      let signUrlObject = {
+        signObjectName: signObjectName,
+        url: url
+      }
+      state.sign_url_save_file.push(signUrlObject);
     },
 
     SET_SUBMISSION_TEXT_OBJECTS_FOR_WRITING(state, textObjects) {
@@ -68,6 +79,7 @@ const submission = {
         state.add_count += 1;
         em.local_idx = state.add_count;
         delete em.project;
+        em.url = "";
       });
       state.sign_objects = signObjects;
     },
@@ -80,6 +92,7 @@ const submission = {
         }
       }
     },
+
     UPDATE_SUBMISSION_CHECKBOX_OBJECT(state, checkboxObject) {
       for (let i = 0; i < state.checkbox_objects.length; i++) {
         if (checkboxObject.local_idx == state.checkbox_objects[i].local_idx) {
@@ -88,6 +101,7 @@ const submission = {
         }
       }
     },
+
     UPDATE_SUBMISSION_SIGN_OBJECT(state, signObject) {
       for (let i = 0; i < state.sign_objects.length; i++) {
         if (signObject.local_idx == state.sign_objects[i].local_idx) {

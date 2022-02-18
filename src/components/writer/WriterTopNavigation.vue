@@ -58,6 +58,7 @@ export default {
             for (let signIMG of signIMGArr) {
                 if (signIMG.src.length >= 2) {
                     files.push(dataURLtoFile(signIMG.src));
+                    this.$store.commit("SAVE_SUBMISSION_SIGN_URL_DATA", {signObjectName: signIMG.getAttribute("id"), url: signIMG.src});
                 }
                 filesName.push(signIMG.getAttribute("id"));
             }
@@ -67,6 +68,7 @@ export default {
                 const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
                 let pdfData = this.setPDF();
                 this.$store.dispatch("saveSubmitteData", {submitter: this.submitter, files: files, filesName: filesName, pdfData: pdfData}).then((res) => {
+                    console.log(res);
                     this.$router.push("/writer/submission/" + projectName + "/over")
                 }).catch((err) => {
                     console.log(err);

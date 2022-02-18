@@ -64,6 +64,7 @@ export default {
       let longTextAreaHeight = window.getComputedStyle(longTextArea);
       let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
       let tBoxHeight = tBox.scrollHeight;
+      this.object.content = event.target.innerText;
       event = event || window.event;
       if (parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8) {
           if (event.keyCode === 13) { //Enter key's keycode
@@ -73,6 +74,7 @@ export default {
               ele.innerText = ele
                   .innerText
                   .slice(0, ele.innerText.length - 2);
+              this.object.content = ele.innerText;
               const newRange = document.createRange();
               console.log(tBox.childNodes);
               newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
