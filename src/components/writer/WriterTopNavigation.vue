@@ -62,16 +62,13 @@ export default {
                 }
                 filesName.push(signIMG.getAttribute("id"));
             }
-            console.log(files);
             //서명입력이 제대로 됐는지 확인한다.
             if (filesName.length === files.length) {
                 const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
                 let pdfData = this.setPDF();
                 this.$store.dispatch("saveSubmitteData", {submitter: this.submitter, files: files, filesName: filesName, pdfData: pdfData}).then((res) => {
-                    console.log(res);
                     this.$router.push("/writer/submission/" + projectName + "/over")
                 }).catch((err) => {
-                    console.log(err);
                     alert("저장에 실패하였습니다.");
                 })
             } else{

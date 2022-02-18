@@ -52,7 +52,6 @@ const submission = {
         url: url
       }
       state.sign_url_save_file.push(signUrlObject);
-      console.log(state.sign_url_save_file);
     },
 
     SET_SUBMISSION_TEXT_OBJECTS_FOR_WRITING(state, textObjects) {
@@ -192,11 +191,9 @@ const submission = {
         );
         postSubmitteeProject(context.state.submitted_project.name, form)
           .then((res) => {
-            console.log(res);
             resolve(res);
           })
           .catch((err) => {
-            console.log(err);
             reject(err);
           });
       });

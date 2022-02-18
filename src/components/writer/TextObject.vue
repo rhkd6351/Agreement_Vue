@@ -76,7 +76,6 @@ export default {
                   .slice(0, ele.innerText.length - 2);
               this.object.content = ele.innerText;
               const newRange = document.createRange();
-              console.log(tBox.childNodes);
               newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
               newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
               const selection = document.getSelection();
