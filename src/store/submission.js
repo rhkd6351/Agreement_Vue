@@ -1,5 +1,5 @@
 import { getSubmission } from "@/api/submissionAPI";
-import { getSubmitteeProject } from "../api/projectAPI";
+import { getSubmitteeProject, postSubmitteeProject } from "../api/projectAPI";
 
 const submission = {
   state: {
@@ -113,10 +113,7 @@ const submission = {
             const data = res.data;
             context.commit("SET_SUBMITTED_PROJECT", data);
             context.commit("SET_SUBMISSION_TEXT_OBJECTS_FOR_WRITING", data.project_object_texts);
-            context.commit(
-              "SET_SUBMISSION_CHECKBOX_OBJECTS_FOR_WRITING",
-              data.project_object_checkboxes
-            );
+            context.commit("SET_SUBMISSION_CHECKBOX_OBJECTS_FOR_WRITING", data.project_object_checkboxes);
             context.commit("SET_SUBMISSION_SIGN_OBJECTS_FOR_WRITING", data.project_object_signs);
             resolve(data);
           })
@@ -151,6 +148,44 @@ const submission = {
           });
       });
     },
+    async saveSubmitteData(context, {submitter, files, filesName, pdfData}) {
+      return await new Promise((resolve, reject) => {
+        let jsonData =
+        {
+          student_name: submitter.name,
+          student_id: Number(submitter.school_id),
+          submittee_object_texts: context.state.text_objects,
+          submittee_object_checkboxes: context.state.checkbox_objects,
+          submittee_object_signs: context.state.sign_objects,
+        }
+        let form = new FormData();
+        let jsonBlob = new Blob(
+          [JSON.stringify(jsonData)],
+          {type: 'application/json'}
+        );
+        form.append('data', jsonBlob);
+        for (let count = 0; count < files.length; count++) {
+          //이미지가 여러개이므로 각각의 이미지와 이미지의 이름을 잡아서 넣어준다.
+          let imageBlob = new Blob([files[count]], {type: 'image/png'});
+          form.append('sign_img', imageBlob, filesName[count] + '.png');
+        }
+        let pdf_file = new Blob([pdfData.output('blob')], {type: 'application/pdf'});
+        form.append(
+          'file_pdf',
+          pdf_file,
+          context.state.submitted_project.title + '.pdf'
+        );
+        postSubmitteeProject(context.state.submitted_project.name, form)
+          .then((res) => {
+            console.log(res);
+            resolve(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            reject(err);
+          });
+      });
+    }
   },
 };
 
