@@ -52,9 +52,7 @@ export default {
       }
 
       this.$store.commit("UPDATE_TEXT_OBJECT", {
-        ...this.object,
-        width: this.shapeObject.width,
-        height: this.shapeObject.height
+        ...this.object, width: this.shapeObject.width, height: this.shapeObject.height
       })
     })
   },

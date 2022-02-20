@@ -67,6 +67,7 @@ export default {
                 const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
                 let pdfData = this.setPDF();
                 this.$store.dispatch("saveSubmitteData", {submitter: this.submitter, files: files, filesName: filesName, pdfData: pdfData}).then((res) => {
+                    this.$store.commit("SET_SUBMITTER_WRITE_DATE")
                     this.$router.push("/writer/submission/" + projectName + "/over")
                 }).catch((err) => {
                     alert("저장에 실패하였습니다.");

@@ -125,6 +125,7 @@ const submission = {
         getSubmitteeProject(projectName)
           .then((res) => {
             const data = res.data;
+            console.log(data);
             context.commit("SET_SUBMITTED_PROJECT", data);
             context.commit("SET_SUBMISSION_TEXT_OBJECTS_FOR_WRITING", data.project_object_texts);
             context.commit("SET_SUBMISSION_CHECKBOX_OBJECTS_FOR_WRITING", data.project_object_checkboxes);
@@ -173,10 +174,7 @@ const submission = {
           submittee_object_signs: context.state.sign_objects,
         }
         let form = new FormData();
-        let jsonBlob = new Blob(
-          [JSON.stringify(jsonData)],
-          {type: 'application/json'}
-        );
+        let jsonBlob = new Blob([JSON.stringify(jsonData)], {type: 'application/json'});
         form.append('data', jsonBlob);
         for (let count = 0; count < files.length; count++) {
           //이미지가 여러개이므로 각각의 이미지와 이미지의 이름을 잡아서 넣어준다.
@@ -184,11 +182,7 @@ const submission = {
           form.append('sign_img', imageBlob, filesName[count] + '.png');
         }
         let pdf_file = new Blob([pdfData.output('blob')], {type: 'application/pdf'});
-        form.append(
-          'file_pdf',
-          pdf_file,
-          context.state.submitted_project.title + '.pdf'
-        );
+        form.append('file_pdf', pdf_file, context.state.submitted_project.title + '.pdf');
         postSubmitteeProject(context.state.submitted_project.name, form)
           .then((res) => {
             resolve(res);
