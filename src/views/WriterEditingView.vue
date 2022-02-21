@@ -9,22 +9,29 @@
             <writer-left-navigation/>
             <writer-pdf-viewer/>
         </div>
-
+        <sign-dialog v-if="signDialogShow"/>
     </div>
 </template>
 
 <script>
 import WriterLeftNavigation from '@/components/writer/WriterLeftNavigation.vue'
 import WriterTopNavigation from '@/components/writer/WriterTopNavigation.vue'
-import WriterPdfViewer from '../components/writer/WriterPdfViewer.vue'
+import WriterPdfViewer from '@/components/writer/WriterPdfViewer.vue'
+import SignDialog from '@/components/writer/SignDialog.vue'
 export default {
-  components: { WriterTopNavigation, WriterLeftNavigation, WriterPdfViewer },
+  components: { WriterTopNavigation, WriterLeftNavigation, WriterPdfViewer, SignDialog },
 
   data: () => {
-      return {
+      return { 
           cursorStyle: {},
-          imageStyle: {},
+          imageStyle: {}
       }
+  },
+
+  computed: {
+    signDialogShow(){
+      return this.$store.state.submission.sign_dialog_show
+    }
   },
 
   methods: {
@@ -63,8 +70,8 @@ export default {
   },
 
   mounted(){
-    const projectName = this.$router.currentRoute.value.fullPath.split("/")[2];
-    this.$store.dispatch("fetchProject", projectName);
+    const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
+    this.$store.dispatch("fetchSubmitterProject", projectName);
   },
 
   unmounted() {

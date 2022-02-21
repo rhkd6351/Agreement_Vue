@@ -29,11 +29,19 @@ function getSubmitteeProject(projectName) {
   return axiosService.get(`/api/submittees/projects/${projectName}`);
 }
 
+function postSubmitteeProject(projectName, form) {
+  return axiosService.post(`/api/submittees/projects/${projectName}`, form, {
+      responseType: "blob"
+    }
+  );
+}
+
 function getProject(projectName) {
   return axiosService.get(`/api/projects/${projectName}`);
 }
 
 function saveObjects(projectName, objects) {
+  console.log(objects);
   return axiosService.post(`/api/projects/${projectName}/objects`, {
     project_object_texts: objects.text_objects,
     project_object_checkboxes: objects.checkbox_objects,
@@ -63,5 +71,6 @@ export {
   saveObjects,
   changeTitle,
   getSubmitteeProject,
+  postSubmitteeProject,
   copyProject,
 };

@@ -30,11 +30,19 @@ export default {
       top: `${this.object.y_position}px`,
       left: `${this.object.x_position}px`,
     };
-
-    this.shapeObject = {
-      width: `${this.object.width}px`,
-      height: `${this.object.height}px`,
-      backgroundImage: `url(${process.env.VUE_APP_API_URL + this.object.submittee_object_sign_img.url})`
+    if(this.$router.currentRoute.value.fullPath.split("/")[4] === "over"){
+      let url = this.$store.state.submission.sign_url_save_file.find(e => e.signObjectName === this.object.name).url;
+      this.shapeObject = {
+        width: `${this.object.width}px`,
+        height: `${this.object.height}px`,
+        backgroundImage: `url(${url})`
+      }
+    }
+    else{
+      this.shapeObject = {
+        width: `${this.object.width}px`,
+        height: `${this.object.height}px`,
+      }
     }
   },
   

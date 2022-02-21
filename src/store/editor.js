@@ -1,4 +1,4 @@
-import { getProject, saveObjects, changeTitle } from "../api/projectAPI";
+import { getProject, postSubmitteeProject, saveObjects, changeTitle } from "../api/projectAPI";
 
 const editor = {
   state: {
@@ -9,6 +9,7 @@ const editor = {
     add_mode: "",
     add_count: 0,
     sign_dialog_show: false,
+    sign_dialog_data: "",
     zoom: 100,
   },
 
@@ -40,6 +41,7 @@ const editor = {
       });
       state.checkbox_objects = checkboxObjects;
     },
+
     SET_SIGN_OBJECTS(state, signObjects) {
       signObjects.map((em) => {
         state.add_count += 1;
@@ -95,7 +97,6 @@ const editor = {
     UPDATE_PROJECT_TITLE(state, title) {
       state.editing_project.title = title;
     },
-
     DELETE_TEXT_OBJECT(state, textObject) {
       for (let i = 0; i < state.text_objects.length; i++) {
         if (textObject.local_idx == state.text_objects[i].local_idx) {
@@ -202,7 +203,9 @@ const editor = {
           break;
       }
     },
+    makeJsonForm(){
 
+    },
     async saveData(context) {
       return await new Promise((resolve, reject) => {
         saveObjects(context.state.editing_project.name, {
@@ -222,7 +225,7 @@ const editor = {
             reject(err);
           });
       });
-    },
+    }
   },
 };
 

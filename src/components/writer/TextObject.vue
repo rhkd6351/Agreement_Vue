@@ -9,6 +9,12 @@
       :id="'object_' + this.propKey"
       :style="shapeObject"
       >
+        <span
+          class="long-text-area"
+          v-bind:id="'long-text-area '+object.local_idx"
+          contenteditable="true"
+          lang="ko"
+          @keydown="limitText"></span>
       </div>
   </div>
 </template>
@@ -46,13 +52,37 @@ export default {
       }
 
       this.$store.commit("UPDATE_TEXT_OBJECT", {
-        ...this.object,
-        width: this.shapeObject.width,
-        height: this.shapeObject.height
+        ...this.object, width: this.shapeObject.width, height: this.shapeObject.height
       })
     })
+  },
+  methods: {
+    limitText(event) {
+      let longTextArea = document.getElementById('object_' + this.propKey);
+      let longTextAreaHeight = window.getComputedStyle(longTextArea);
+      let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
+      let tBoxHeight = tBox.scrollHeight;
+      this.object.content = event.target.innerText;
+      event = event || window.event;
+      if (parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8) {
+          if (event.keyCode === 13) { //Enter key's keycode
+              event.preventDefault();
+          } else {
+              const ele = event.target;
+              ele.innerText = ele
+                  .innerText
+                  .slice(0, ele.innerText.length - 2);
+              this.object.content = ele.innerText;
+              const newRange = document.createRange();
+              newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+              newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+              const selection = document.getSelection();
+              selection.removeAllRanges();
+              selection.addRange(newRange);
+          }
+      }
+    }
   }
-
 }
 </script>
 
@@ -63,7 +93,6 @@ export default {
   opacity: 0.999;
   top: 150px;
   left: 100px;
-  cursor: pointer;
 
   .object-name{
     color: #5c5c5c;
@@ -77,24 +106,18 @@ export default {
     height: 100px;
     background-color: #DADADA;
     border: 1px solid #767676;
-    resize: both;
-    overflow: hidden;
     background-image: url('../../images/underline.png');
   }
-  .button-wrapper{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-  }
-  .x-button{
-    position:absolute;
-    top: calc(50% - 20px);
-    left: calc(50% + 0px);
-    z-index: 100;
-    width: 20px;
-    height: 20px;
+  .long-text-area{
+    -ms-ime-mode: active;
+    ime-mode: active;
+    display: inline-block;
+    width: 85%;
+    height: 40px;
+    line-height: 20px;
+    margin-left: 7.5%;
+    text-align: left;
+    outline: 0 solid transparent;
   }
 }
 

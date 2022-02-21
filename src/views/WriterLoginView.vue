@@ -1,11 +1,11 @@
 <template >
     <div class="login-wrapper">
         <div class="login-center">
-            <div v-if="state == 0" class="login-stop-row">
+            <div v-if="state === 0" class="login-stop-row">
                 <h3>공유되지 않은 문서입니다.</h3>
             </div>
             <div v-else class="login-box">
-                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.schoolID"/>
+                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.school_id"/>
                 <input
                     class="login-input-password"
                     placeholder="학생이름"
@@ -30,15 +30,14 @@
             }
         },
         mounted(){
+            let self = this;
             getSubmitteeProject(this.$route.params.submissionName)
                 .then(function (response) {
-                    console.log(response.data);
-                    this.state = response.data.state;
-                    this.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
+                    self.state = response.data.state;
+                    //self.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
                 })
                 .catch(function (error) {
-                    console.log(error);
-                    this.state = 0;
+                    self.state = 0;
                 }
             );
         },
@@ -48,8 +47,8 @@
         methods: {
             goWritingPage() {
                 //정규식으로 유효성 검사 실시.
-                if (/^[0-9_-]{1,10}$/.test(this.submitter.schoolID) && typeof(this.submitter.name) === 'string') {
-                    if (this.submitter.schoolID.length <= 8 && this.submitter.name.length <= 4) {
+                if (/^[0-9_-]{1,10}$/.test(this.submitter.school_id) && typeof(this.submitter.name) === 'string') {
+                    if (this.submitter.school_id.length <= 8 && this.submitter.name.length <= 4) {
                         if(this.submitter.name.length <= 1){
                             this.message = "이름이 너무 짧습니다. 다시 입력해주세요."
                         }

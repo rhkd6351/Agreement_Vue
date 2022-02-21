@@ -5,12 +5,12 @@
       <div class="object-name">
         ㅤ
       </div>
-      <div class="object-box"
+      <textarea class="object-box"
+      readonly
+      v-model="object.content"
       :id="'object_' + this.propKey"
       :style="shapeObject"
-      >
-      {{object.content}}
-      </div>
+      ></textarea>
   </div>
 </template>
 
@@ -27,7 +27,9 @@ export default {
   },
 
   mounted(){
-
+    let textCssSet = document.getElementsByClassName("object-box")[0];
+    textCssSet.readOnly = true;
+    
     this.positionObject = {
       top: `${this.object.y_position}px`,
       left: `${this.object.x_position}px`,
@@ -36,6 +38,9 @@ export default {
     this.shapeObject = {
       width: `${this.object.width}px`,
       height: `${this.object.height}px`,
+      border: 'none',
+      outline: '0 solid transparent',
+      resize: 'none'
     }
   }
 
@@ -57,7 +62,7 @@ export default {
     font-weight: bold;
   }
 
-  .object-box{
+  .object-box :read-only{
     position: absolute;
     width: 100px;
     height: 100px;
