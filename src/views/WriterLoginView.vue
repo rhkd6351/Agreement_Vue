@@ -1,10 +1,23 @@
 <template >
     <div class="login-wrapper">
         <div class="login-center">
+
+            <div class="login-title">
+                서비스명
+            </div>
+            <div class="login-description">
+                학번과 학생이름을 입력하고 문서 작성을 시작해주세요.
+            </div>
+            <div class="login-project-title">
+                {{project.title}}
+            </div>
+
             <div v-if="state === 0" class="login-stop-row">
                 <h3>공유되지 않은 문서입니다.</h3>
             </div>
+
             <div v-else class="login-box">
+                
                 <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.school_id"/>
                 <input
                     class="login-input-password"
@@ -29,11 +42,13 @@
                 return this.$store.state.submitter.submitter;
             }
         },
+
         mounted(){
             let self = this;
             getSubmitteeProject(this.$route.params.submissionName)
                 .then(function (response) {
                     self.state = response.data.state;
+                    self.project = response.data
                     // self.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
                 })
                 .catch(function (error) {
@@ -42,7 +57,13 @@
             );
         },
         data() {
-            return {validationErrors: [], message: "", submissionName: this.$route.params.submissionName, state: 1};
+            return {
+             validationErrors: [],
+             message: "",
+             submissionName: this.$route.params.submissionName,
+             state: 1,
+             project: {},
+             };
         },
         methods: {
             goWritingPage() {
@@ -91,18 +112,37 @@
             font-size: 32px;
             color: #5C5C5C;
             font-weight: bold;
+            margin: 0 auto;
 
             width: 303px;
             height: 84px;
             line-height: 84px;
             text-align: center;
         }
+
+        .login-description{
+            font-size: 18px;
+            color: #5C5C5C;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .login-project-title{
+            font-size: 18px;
+            color: #5C5C5C;
+            text-align: center;
+            line-height: 36px;
+            margin-top: 10px;
+            font-weight: 700;
+            text-decoration: underline;
+        }
     
         .login-box{
             background-color: white;
             width: 303px;
             height: 238px;
-            margin-top: 67px;
+            margin: 0 auto;
+            margin-top: 27px;
             border-radius: 15px;
             border: 1px solid transparent;
 
