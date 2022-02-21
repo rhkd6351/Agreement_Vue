@@ -69,7 +69,8 @@ export default {
         }   
   },
 
-  mounted(){
+async mounted() {
+    await this.$nextTick();
     const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
     this.$store.dispatch("fetchSubmitterProject", projectName);
   },

@@ -119,12 +119,7 @@ export default {
                 renderBox.style.zoom = `${this.zoom}%`;
             }
         }
-    },
-
-    async mounted() {
-        
     }
-
 }
 </script>
 

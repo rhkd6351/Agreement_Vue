@@ -68,6 +68,7 @@ export default {
     height: 100px;
     font-size: 14px;
     overflow: hidden;
+    
     // background-image: url('../../../images/underline.png');
   }
 

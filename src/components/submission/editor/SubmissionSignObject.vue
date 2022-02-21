@@ -39,9 +39,11 @@ export default {
       }
     }
     else{
+      let url = this.object.submittee_object_sign_img.url;
       this.shapeObject = {
         width: `${this.object.width}px`,
         height: `${this.object.height}px`,
+        backgroundImage: `url(https://junggam.click${url})`
       }
     }
   },
