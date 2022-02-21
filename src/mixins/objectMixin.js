@@ -28,7 +28,12 @@ export const objectMixin = {
       )[0].scrollTop;
     },
 
-    onMouseUpHandler(event) {
+    onTextMouseUpHandler(event) {
+      let quotient = this.shapeObject.height / 20;
+      this.shapeObject.height = `${20 * Math.round(quotient)}px`;
+    },
+
+    onSignMouseUpHandler(event) {
       const quotient = this.shapeObject.height / 20;
       this.shapeObject.height = `${20 * Math.round(quotient)}px`;
     },

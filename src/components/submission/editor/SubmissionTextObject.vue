@@ -66,6 +66,7 @@ export default {
     position: absolute;
     width: 100px;
     height: 100px;
+    min-height: 20px;
     font-size: 14px;
     overflow: hidden;
     // background-image: url('../../../images/underline.png');

@@ -12,7 +12,7 @@
       </div>
       <div class="object-box"
       :id="'object_' + this.propKey"
-      @mouseup="onMouseUpHandler"
+      @mouseup="onTextMouseUpHandler"
       :style="shapeObject"
       >
       </div>
@@ -96,9 +96,11 @@ export default {
     height: 100px;
     background-color: #DADADA;
     border: 1px solid #767676;
+    min-height: 20px;
     // resize: both;
     overflow: hidden;
     background-image: url('../../images/underline.png');
+    z-index: 100;
   }
   .button-wrapper{
     width: 30px;
@@ -111,7 +113,6 @@ export default {
     position:absolute;
     top: calc(50% - 20px);
     left: calc(50% + 0px);
-    z-index: 100;
     width: 20px;
     height: 20px;
   }
