@@ -19,50 +19,49 @@ import WriterTopNavigation from '@/components/writer/WriterTopNavigation.vue'
 import WriterPdfViewer from '@/components/writer/WriterPdfViewer.vue'
 import SignDialog from '@/components/writer/SignDialog.vue'
 export default {
-  components: { WriterTopNavigation, WriterLeftNavigation, WriterPdfViewer, SignDialog },
+    components: { WriterTopNavigation, WriterLeftNavigation, WriterPdfViewer, SignDialog },
 
-  data: () => {
-      return { 
-          cursorStyle: {},
-          imageStyle: {}
-      }
-  },
-
-  computed: {
-    signDialogShow(){
-      return this.$store.state.submission.sign_dialog_show
+    data: () => {
+        return { 
+            cursorStyle: {},
+            imageStyle: {}
+        }
     },
-    submitter(){
-        return this.$store.state.submitter.submitter;
-    }
-  },
 
-  methods: {
+    computed: {
+        signDialogShow(){
+            return this.$store.state.submission.sign_dialog_show
+        },
+        submitter(){
+            return this.$store.state.submitter.submitter;
+        }
+    },
+    methods: {
       cursorImageHandler(addMode) {
           let url = "";
           switch(addMode){
-              case "text":
-                  url = require('@/images/text.png');
-                  this.cursorStyle = {
-                      cursor: `url(${url}), auto`
-                  }
-                  break;
-              case "checkbox":
-                  url = require('@/images/checkbox.png');
-                  this.cursorStyle = {
-                      cursor: `url(${url}), auto`
-                  }
-                  break;
-              case "sign":
-                  url = require('@/images/sign.png');
-                  this.cursorStyle = {
-                      cursor: `url(${url}), auto`
-                  }
-                  console.log(this.cursorStyle);
-                  break;     
-          }
-      },
-      onMouseMoveHandler(e){
+            case "text":
+                url = require('@/images/text.png');
+                this.cursorStyle = {
+                    cursor: `url(${url}), auto`
+                }
+                break;
+            case "checkbox":
+                url = require('@/images/checkbox.png');
+                this.cursorStyle = {
+                    cursor: `url(${url}), auto`
+                }
+                break;
+            case "sign":
+                url = require('@/images/sign.png');
+                this.cursorStyle = {
+                    cursor: `url(${url}), auto`
+                }
+                console.log(this.cursorStyle);
+                break;     
+            }
+        },
+        onMouseMoveHandler(e){
             let x =  e.clientX;
             let y =  e.clientY;
             this.imageStyle = {
@@ -70,23 +69,21 @@ export default {
                 left: `${x}px`
             }
         }   
-  },
-updated(){
-    if(this.submitter.student_name.length === 0){
+    },
+    async mounted() {
+        if(this.submitter.student_name.length === 0){
+            const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
+            this.$router.push("/writer/submission/" + projectName + "/login");
+        }
+        await this.$nextTick();
         const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
-        this.$router.push("/writer/submission/" + projectName + "/login");
-    }
-},
-async mounted() {
-    await this.$nextTick();
-    const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
-    this.$store.dispatch("fetchSubmitterProject", projectName);
-  },
+        this.$store.dispatch("fetchSubmitterProject", projectName);
+    },
 
 
-  unmounted() {
-    this.$store.commit("INITIALIZE_OBJECTS");
-  },
+    unmounted() {
+        this.$store.commit("INITIALIZE_OBJECTS");
+    },
 }
 </script>
 

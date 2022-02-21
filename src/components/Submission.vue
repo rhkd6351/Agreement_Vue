@@ -8,7 +8,7 @@
         @click="downloadPdf"
         >다운로드</div>
         <div class="submission-em-etc"
-            @click="goSubmissionEditingView" >
+        @click="goSubmissionEditingView" >
         문서보기
         </div>
     </div>
