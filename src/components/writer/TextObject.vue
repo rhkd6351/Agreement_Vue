@@ -60,27 +60,38 @@ export default {
     limitText(event) {
       let longTextArea = document.getElementById('object_' + this.propKey);
       let longTextAreaHeight = window.getComputedStyle(longTextArea);
-      let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
-      let tBoxHeight = tBox.scrollHeight;
       this.object.content = event.target.innerText;
       event = event || window.event;
-      if (parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8) {
-          if (event.keyCode === 13) { //Enter key's keycode
-              event.preventDefault();
-          } else {
-              const ele = event.target;
-              ele.innerText = ele
-                  .innerText
-                  .slice(0, ele.innerText.length - 2);
-              this.object.content = ele.innerText;
-              const newRange = document.createRange();
-              newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
-              newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
-              const selection = document.getSelection();
-              selection.removeAllRanges();
-              selection.addRange(newRange);
-          }
+      let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
+      let tBoxHeight = tBox.scrollHeight;
+      let self = this;
+      if(parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8){
+        if (event.keyCode === 13) { //Enter key's keycode
+          event.preventDefault();
+        }
       }
+      let incrementEveryOneSecond = setInterval(function(){
+        let tBox = document.getElementById('long-text-area ' + self.object.local_idx);
+        let tBoxHeight = tBox.scrollHeight;
+        if(parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8){
+          if (event.keyCode === 13) { //Enter key's keycode
+            event.preventDefault();
+          }
+          else{
+            const ele = event.target;
+            ele.innerText = ele.innerText.slice(0, ele.innerText.length - 2);
+            self.object.content = ele.innerText;
+            const newRange = document.createRange();
+            newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+            newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+            const selection = document.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(newRange);
+          }
+        }
+        if(parseInt(longTextAreaHeight.height, 10) >= tBoxHeight) 
+          clearInterval(incrementEveryOneSecond);
+      }, 10); 
     }
   }
 }
@@ -112,10 +123,9 @@ export default {
     -ms-ime-mode: active;
     ime-mode: active;
     display: inline-block;
-    width: 85%;
-    height: 40px;
+    width: 100%;
+    height: 10px;
     line-height: 20px;
-    margin-left: 7.5%;
     text-align: left;
     outline: 0 solid transparent;
   }
