@@ -70,6 +70,10 @@ export default {
     position: absolute;
     width: 100px;
     height: 100px;
+    min-height: 50px;
+    min-width: 50px;
+    max-height: 150px;
+    max-width: 150px;
     overflow: auto;
     background-repeat: no-repeat;
     background-position: center;
