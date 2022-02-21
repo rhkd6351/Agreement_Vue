@@ -132,9 +132,10 @@ export default {
     height: calc(100vh - 168px);
     overflow: auto;
     flex-grow: 1;
+    position: relative;
 
     .render-box{
-        width: 800px;
+        width: 1050px;
         // height: calc(100% - 41px);
         margin: 41px auto 41px auto;
 
@@ -144,6 +145,7 @@ export default {
     .pdf-layer{
         position: relative;
         margin-bottom: 40px;
+        background-color: white;
 
         .object{
             z-index: 4;
