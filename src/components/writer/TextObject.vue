@@ -60,7 +60,8 @@ export default {
     limitText(event) {
       let longTextArea = document.getElementById('object_' + this.propKey);
       let longTextAreaHeight = window.getComputedStyle(longTextArea);
-      this.object.content = event.target.innerText;
+      this.object.content = event.target.innerHTML;
+      console.log(event.target.innerHTML);
       event = event || window.event;
       let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
       let tBoxHeight = tBox.scrollHeight;
@@ -80,7 +81,7 @@ export default {
           else{
             const ele = event.target;
             ele.innerText = ele.innerText.slice(0, ele.innerText.length - 2);
-            self.object.content = ele.innerText;
+            self.object.content = ele.innerHTML;
             const newRange = document.createRange();
             newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
             newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
