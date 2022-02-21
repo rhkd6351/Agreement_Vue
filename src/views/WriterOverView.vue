@@ -8,7 +8,18 @@
 <script>
 import WriteOverPdfViewer from '../components/writer/WriteOverPdfViewer.vue'
 export default {
-  components: { WriteOverPdfViewer },
+    computed: {
+        submitter(){
+        return this.$store.state.submitter.submitter;
+        }
+    },
+    components: { WriteOverPdfViewer },
+    updated(){
+    if(this.submitter.student_name.length === 0){
+        const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
+        this.$router.push("/writer/submission/" + projectName + "/login");
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>
