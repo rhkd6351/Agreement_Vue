@@ -4,7 +4,7 @@ const submitter = {
   state: {
     submitter: {
       student_id: "",
-      name: "",
+      student_name: "",
       date: ""
     }
   },
