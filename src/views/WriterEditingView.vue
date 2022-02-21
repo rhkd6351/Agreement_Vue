@@ -31,6 +31,9 @@ export default {
   computed: {
     signDialogShow(){
       return this.$store.state.submission.sign_dialog_show
+    },
+    submitter(){
+        return this.$store.state.submitter.submitter;
     }
   },
 
@@ -68,12 +71,18 @@ export default {
             }
         }   
   },
-
+updated(){
+    if(this.submitter.student_name.length === 0){
+        const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
+        this.$router.push("/writer/submission/" + projectName + "/login");
+    }
+},
 async mounted() {
     await this.$nextTick();
     const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
     this.$store.dispatch("fetchSubmitterProject", projectName);
   },
+
 
   unmounted() {
     this.$store.commit("INITIALIZE_OBJECTS");

@@ -13,15 +13,14 @@ import SubmissionLeftNavigation from '../components/submission/editor/Submission
 import SubmissionPdfViewer from '../components/submission/editor/SubmissionPdfViewer.vue'
 import SubmissionTopNavigation from '../components/submission/editor/SubmissionTopNavigation.vue'
 export default {
-  components: { SubmissionTopNavigation, SubmissionLeftNavigation, SubmissionPdfViewer },
+    components: { SubmissionTopNavigation, SubmissionLeftNavigation, SubmissionPdfViewer },
 
+    mounted(){
+        const submissionName = this.$router.currentRoute.value.fullPath.split("/")[2];
+        this.$store.dispatch("fetchSubmission", submissionName);
+    },
 
-  mounted(){
-    const submissionName = this.$router.currentRoute.value.fullPath.split("/")[2];
-    this.$store.dispatch("fetchSubmission", submissionName);
-  },
-
-  unmounted() {
+    unmounted() {
         this.$store.commit("INITIALIZE_SUBMISSION");
     },
 }
