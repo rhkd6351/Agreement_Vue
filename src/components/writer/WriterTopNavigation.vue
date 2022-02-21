@@ -78,7 +78,8 @@ export default {
         },
 
         onCloseHandler(){
-            this.$router.push("/dashboard/project")
+            const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
+            this.$router.push("/writer/submission/" + projectName + "/login")
         }
     }
 

@@ -18,11 +18,11 @@
 
                 <div class="login-box">
                 
-                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.school_id"/>
+                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.student_id"/>
                 <input
                     class="login-input-password"
                     placeholder="학생이름"
-                    v-model="submitter.name"
+                    v-model="submitter.student_name"
                     type="text"
                     @keyup.enter="goWritingPage"/>
                 <div class="login-error">
@@ -70,7 +70,7 @@
         methods: {
             goWritingPage() {
                 //정규식으로 유효성 검사 실시.
-                if (/^[0-9_-]{1,8}$/.test(this.submitter.school_id) && /^[ㄱ-ㅎ가-힣]{2,4}$/.test(this.submitter.name)) {
+                if (/^[0-9_-]{1,8}$/.test(this.submitter.student_id) && /^[ㄱ-ㅎ가-힣]{2,4}$/.test(this.submitter.student_name)) {
                     this.$router
                         .push({
                                 path: "/writer/submission/" + this.submissionName + "/edit",
