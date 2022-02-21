@@ -74,9 +74,8 @@ import SubmissionSignObject from '@/components/submission/editor/SubmissionSignO
 import SubmissionTextObject from '@/components/submission/editor/SubmissionTextObject.vue';
 import SubmissionCheckboxObject from '@/components/submission/editor/SubmissionCheckboxObject.vue';
 export default {
-
-    components: {
-        pdf,
+    mounted(){
+        console.log(this.$store.state.submission.text_objects);
     },
 
     components: {

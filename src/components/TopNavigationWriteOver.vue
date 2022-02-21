@@ -1,11 +1,11 @@
 <template>
-  <div class="buttonbox">
-    <div class="buttonstyle" style="color: white; background-color: #5C5C5C;" @click="closeBtn()">
-      <h3>닫기</h3>
-    </div>
-    <div style="background-color: white;" class="buttonstyle" @click="saveDocumentBtn()">
-      <h3>다운로드</h3>
-    </div>
+  <div class="over-button-box">
+    <div
+    @click="closeBtn"
+    class="close-button over-button">닫기</div>
+    <div 
+    @click="saveDocumentBtn"
+    class="complete-button over-button">다운로드</div>
   </div>
 </template>
 <script>
@@ -62,7 +62,7 @@ export default {
         const date = submitter.date.toLocaleString();
         //.split("T");
         //const date = dateArr[0] + " " + dateArr[1];
-        let fileName = `${submissionTitle}_${submitter.name}_${submitter.school_id}_ ${date}.pdf`
+        let fileName = `${submissionTitle}_${submitter.student_name}_${submitter.student_id}_ ${date}.pdf`
         let download_a = document.createElement("a");
         download_a.href = file;
         download_a.download = fileName; //한글 분해현상 방지.
@@ -75,33 +75,38 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .buttonbox{
+  .over-button-box{
     display: flex;
-    align-items: center;
-  }
-  .buttonstyle{
-    width: 100px;
-    height: 70%;
-    font-size: 20px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    box-shadow: none;
-    cursor: pointer;    
-    h3{
-      width: 100%;
-      text-align: center;
-    }
-    &:hover{
+    justify-content: center;
+    .over-button {
+        margin: 16px 23px;
+        width: 74px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        text-align: center;
+        font-weight: 700;
+        border-radius: 5px;
+        cursor: pointer;
         transition-duration: 0.2s;
-        // background-color: #d5d5d5;
-        box-shadow:inset 3px 3px 3px 3px #000000;
     }
-    &:active{
-        transition-duration: 0.1s;
-        // background-color: #d5d5d5;
-        box-shadow:inset 5px 5px 5px 5px #000000;
+    .close-button {
+        color: #F3F3F3;
+
+        &:hover{
+            transition-duration: 0.2s;
+            background-color: #cbcbcb;
+        }
+    }
+
+    .complete-button{
+        color: #5C5C5C;
+        background-color: #F3F3F3;
+
+        &:hover{
+            transition-duration: 0.2s;
+            background-color: #cbcbcb;
+        }
     }
   }
 </style>

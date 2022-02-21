@@ -141,21 +141,13 @@ const submission = {
       return new Promise((resolve, reject) => {
         getSubmission(submissionName)
           .then((res) => {
-            const data = res.data;
+            console.log(res.data);
+            const data = res.data;            
             context.commit("SET_SUBMITTED_PROJECT", data);
-            context.commit(
-              "SET_SUBMISSION_TEXT_OBJECTS",
-              data.submittee_object_texts
-            );
-            context.commit(
-              "SET_SUBMISSION_CHECKBOX_OBJECTS",
-              data.submittee_object_checkboxes
-            );
-            context.commit(
-              "SET_SUBMISSION_SIGN_OBJECTS",
-              data.submittee_object_signs
-            );
-
+            context.commit("SET_SUBMITTER", data);
+            context.commit("SET_SUBMISSION_TEXT_OBJECTS", data.submittee_object_texts);
+            context.commit("SET_SUBMISSION_CHECKBOX_OBJECTS", data.submittee_object_checkboxes);
+            context.commit("SET_SUBMISSION_SIGN_OBJECTS", data.submittee_object_signs);
             resolve(data);
           })
           .catch((err) => {
@@ -167,8 +159,8 @@ const submission = {
       return await new Promise((resolve, reject) => {
         let jsonData =
         {
-          student_name: submitter.name,
-          student_id: Number(submitter.school_id),
+          student_name: submitter.student_name,
+          student_id: Number(submitter.student_id),
           submittee_object_texts: context.state.text_objects,
           submittee_object_checkboxes: context.state.checkbox_objects,
           submittee_object_signs: context.state.sign_objects,

@@ -3,7 +3,7 @@
 const submitter = {
   state: {
     submitter: {
-      school_id: "",
+      student_id: "",
       name: "",
       date: ""
     }
@@ -14,8 +14,8 @@ const submitter = {
       state.submitter.date = new Date();
     },
     SET_SUBMITTER(state, data) {
-      state.submitter.school_id = data.school_id;
-      state.submitter.name = data.name;
+      state.submitter.student_id = data.student_id;
+      state.submitter.student_name = data.student_name;
     },
   },
 };

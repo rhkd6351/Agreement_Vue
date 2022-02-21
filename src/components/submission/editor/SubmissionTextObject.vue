@@ -5,12 +5,12 @@
       <div class="object-name">
         ㅤ
       </div>
-      <textarea class="object-box"
-      readonly
-      v-model="object.content"
-      :id="'object_' + this.propKey"
+      <div
+      class="object-box"
+      v-bind:id="'object_' + this.propKey"
       :style="shapeObject"
-      ></textarea>
+      lang="ko"
+      ></div>
   </div>
 </template>
 
@@ -26,8 +26,10 @@ export default {
     propKey: Number
   },
 
-  mounted(){
-    let textCssSet = document.getElementsByClassName("object-box")[0];
+  async mounted(){
+    this.$nextTick();
+    let textCssSet = document.getElementById('object_' + this.propKey);
+    textCssSet.innerHTML = this.object.content;
     textCssSet.readOnly = true;
     
     this.positionObject = {
@@ -42,8 +44,12 @@ export default {
       outline: '0 solid transparent',
       resize: 'none'
     }
+  },
+  methods: {
+    controlKeyDown(event){
+      event.preventDefault();
+    }
   }
-
 }
 </script>
 
@@ -54,7 +60,6 @@ export default {
   opacity: 0.999;
   top: 150px;
   left: 100px;
-  cursor: pointer;
 
   .object-name{
     color: #5c5c5c;
@@ -64,12 +69,12 @@ export default {
 
   .object-box :read-only{
     position: absolute;
-    width: 100px;
-    height: 100px;
-    min-height: 20px;
     font-size: 14px;
-    overflow: hidden;
-    
+    width: 100%;
+    height: 10px;
+    line-height: 20px;
+    text-align: left;
+    outline: 0 solid transparent;
     // background-image: url('../../../images/underline.png');
   }
 

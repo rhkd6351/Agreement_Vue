@@ -18,11 +18,11 @@
 
                 <div class="login-box">
                 
-                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.school_id"/>
+                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.student_id"/>
                 <input
                     class="login-input-password"
                     placeholder="학생이름"
-                    v-model="submitter.name"
+                    v-model="submitter.student_name"
                     type="text"
                     @keyup.enter="goWritingPage"/>
                 <div class="login-error">
