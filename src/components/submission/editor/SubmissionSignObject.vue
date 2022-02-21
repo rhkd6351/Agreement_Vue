@@ -43,7 +43,7 @@ export default {
       this.shapeObject = {
         width: `${this.object.width}px`,
         height: `${this.object.height}px`,
-        backgroundImage: `url(https://junggam.click${url})`
+        backgroundImage: `url(https://sign.u-class.co.kr${url})`
       }
     }
   },

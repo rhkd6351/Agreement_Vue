@@ -13,7 +13,7 @@
             @click="onPdfClickHandler(index+1, $event)"
             >
                 <pdf 
-                :src="`https://junggam.click/api/projects/pdf/${project.pdf.name}`"
+                :src="`https://sign.u-class.co.kr/api/projects/pdf/${project.pdf.name}`"
                 :page="index + 1"
                 @page-loaded="pageLoaded"
                 ></pdf>

@@ -9,7 +9,7 @@
             :key="index"
             >
                 <pdf
-                :src="`https://junggam.click/api/projects/pdf/${submission.pdf.name}`"
+                :src="`https://sign.u-class.co.kr/api/projects/pdf/${submission.pdf.name}`"
                 :page="index + 1"
                 ></pdf>
 
