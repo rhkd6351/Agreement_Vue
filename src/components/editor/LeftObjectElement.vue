@@ -80,8 +80,8 @@ export default {
         onCheckClickHandler(e){
             e && e.stopPropagation();
             
-            if(this.tempName.length < 3){
-                alert("최소 3자 이상을 입력하세요")
+            if(this.tempName.length < 1){
+                alert("최소 1자 이상을 입력하세요")
                 const editbox = document.getElementById(`object_input_${this.object.local_idx}`);
                 editbox.focus();
                 return;
@@ -102,7 +102,13 @@ export default {
             this.onCheckClickHandler();
         },
         onBlurHandler(e){
-            this.onCheckClickHandler();
+            if(this.tempName.length >= 1)
+                this.onCheckClickHandler();
+            else{
+                this.tempName = this.object.name;
+                alert("최소 1자 이상 입력하세요");
+                this.isEditMode = false;
+            }
         },
         onObjectNameChange(e){
             this.tempName = e.target.value;
