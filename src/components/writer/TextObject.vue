@@ -65,21 +65,21 @@ export default {
       this.object.content = event.target.innerText;
       event = event || window.event;
       if (parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8) {
-          if (event.keyCode === 13) { //Enter key's keycode
-              event.preventDefault();
-          } else {
-              const ele = event.target;
-              ele.innerText = ele
-                  .innerText
-                  .slice(0, ele.innerText.length - 2);
-              this.object.content = ele.innerText;
-              const newRange = document.createRange();
-              newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
-              newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
-              const selection = document.getSelection();
-              selection.removeAllRanges();
-              selection.addRange(newRange);
+        if (event.keyCode === 13) { //Enter key's keycode
+            event.preventDefault();
+        } else {
+          while(parseInt(longTextAreaHeight.height, 10) > tBoxHeight){
+            const ele = event.target;
+            ele.innerText = ele.innerText.slice(0, ele.innerText.length - 2);
+            this.object.content = ele.innerText;
+            const newRange = document.createRange();
+            newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+            newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+            const selection = document.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(newRange);
           }
+        }
       }
     }
   }

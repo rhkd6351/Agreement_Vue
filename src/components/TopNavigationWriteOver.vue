@@ -59,11 +59,10 @@ export default {
         const submissionTitle = self.submissionTitle.split('.')[0];
         const submitter = self.submitter;
         let file = URL.createObjectURL(new Blob([doc.output('blob')], {type: 'application/pdf'}));
-        //const dateArr = submitter.Date.split("T");
+        const date = submitter.date.toLocaleString();
+        //.split("T");
         //const date = dateArr[0] + " " + dateArr[1];
-        const date = "";
-        console.log(submitter);
-        let fileName = `${submissionTitle}_${submitter.name}_${submitter.school_id}_${date}.pdf`
+        let fileName = `${submissionTitle}_${submitter.name}_${submitter.school_id}_ ${date}.pdf`
         let download_a = document.createElement("a");
         download_a.href = file;
         download_a.download = fileName; //한글 분해현상 방지.
