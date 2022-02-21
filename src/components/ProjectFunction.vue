@@ -11,7 +11,9 @@
 
         <div 
         v-else-if="status === 2"
-        class="project-copy-link project-function">
+        class="project-copy-link project-function"
+        @click="onShareClickHandler"
+        >
             <img src="@/images/share.png" alt=""> &nbsp;
             <span>링크 공유</span>
         </div>
@@ -47,6 +49,15 @@ export default {
             }else{
 
             }
+        },
+        onShareClickHandler(){
+            const link = document.createElement("textarea");
+            document.body.appendChild(link);
+            link.value = `${process.env.VUE_APP_DOMAIN_URL}/writer/submission/${this.projectName}/login`;
+            link.select();
+            document.execCommand('copy');
+            document.body.removeChild(link);
+            alert("링크가 복사되었습니다.");
         }
     },
 

@@ -34,7 +34,7 @@
             getSubmitteeProject(this.$route.params.submissionName)
                 .then(function (response) {
                     self.state = response.data.state;
-                    //self.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
+                    // self.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
                 })
                 .catch(function (error) {
                     self.state = 0;
