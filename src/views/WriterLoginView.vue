@@ -5,11 +5,11 @@
                 <h3>공유되지 않은 문서입니다.</h3>
             </div>
             <div v-else class="login-box">
-                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.school_id"/>
+                <input class="login-input-text" placeholder="학번" type="text" v-model="submitter.student_id"/>
                 <input
                     class="login-input-password"
                     placeholder="학생이름"
-                    v-model="submitter.name"
+                    v-model="submitter.student_name"
                     type="text"
                     @keyup.enter="goWritingPage"/>
                 <div class="login-error">
@@ -47,9 +47,9 @@
         methods: {
             goWritingPage() {
                 //정규식으로 유효성 검사 실시.
-                if (/^[0-9_-]{1,10}$/.test(this.submitter.school_id) && typeof(this.submitter.name) === 'string') {
-                    if (this.submitter.school_id.length <= 8 && this.submitter.name.length <= 4) {
-                        if(this.submitter.name.length <= 1){
+                if (/^[0-9_-]{1,10}$/.test(this.submitter.student_id) && typeof(this.submitter.student_name) === 'string') {
+                    if (this.submitter.student_id.length <= 8 && this.submitter.student_name.length <= 4) {
+                        if(this.submitter.student_name.length <= 1){
                             this.message = "이름이 너무 짧습니다. 다시 입력해주세요."
                         }
                         else{

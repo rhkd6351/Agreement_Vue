@@ -62,7 +62,7 @@ export default {
         const date = submitter.date.toLocaleString();
         //.split("T");
         //const date = dateArr[0] + " " + dateArr[1];
-        let fileName = `${submissionTitle}_${submitter.name}_${submitter.school_id}_ ${date}.pdf`
+        let fileName = `${submissionTitle}_${submitter.student_name}_${submitter.student_id}_ ${date}.pdf`
         let download_a = document.createElement("a");
         download_a.href = file;
         download_a.download = fileName; //한글 분해현상 방지.
