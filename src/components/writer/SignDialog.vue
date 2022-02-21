@@ -75,6 +75,8 @@
             signDialogForm.style.width = makedWidth + 100 + "px";
             canvas.style.width = makedWidth + "px";
             canvas.style.height = parseInt(this.signDialogData.height) * point + "px";
+            signDialogForm.style.top = `calc(50% - ${(parseInt(this.signDialogData.height) * point) / 2}px)`
+            signDialogForm.style.left = `calc(50% - ${makedWidth / 2}px)`
             this.InitEvent(canvas);
         },
         methods: {
@@ -255,8 +257,6 @@
         background-color: white;
     }
     .sign-view-layout {
-        top: 50%;
-        left: 50%;
         position: absolute;
         text-align: center;
         background-color: rgb(255, 255, 255); 
