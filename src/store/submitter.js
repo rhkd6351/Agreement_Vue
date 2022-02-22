@@ -17,6 +17,10 @@ const submitter = {
       state.submitter.student_id = data.student_id;
       state.submitter.student_name = data.student_name;
     },
+    INITIALIZE_SUBMITTER(state){
+      state.submitter.student_id = "";
+      state.submitter.student_name = "";
+    }
   },
 };
 
