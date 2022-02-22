@@ -12,7 +12,7 @@
       </div>
       <div class="object-box"
       :id="'object_' + this.propKey"
-      @mouseup="onTextMouseUpHandler"
+      @click="onTextMouseUpHandler"
       :style="shapeObject"
       >
       </div>

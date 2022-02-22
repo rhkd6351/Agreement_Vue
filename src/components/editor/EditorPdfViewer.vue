@@ -189,7 +189,7 @@ export default {
         position: relative;
         margin-bottom: 40px;
         background-color: white;
-        pointer-events: none;
+        // pointer-events: none;
         // overflow: hidden;
 
         .object{
