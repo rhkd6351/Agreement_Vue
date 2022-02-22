@@ -3,7 +3,9 @@
       
       <div class="login-center">
         <div class="login-title">
-            서비스명
+            <img 
+            class="login-title-image"
+            src="@/images/logo_text.png" alt="">
         </div>
 
         <div class="login-box">
@@ -75,11 +77,16 @@ export default {
             font-size: 32px;
             color: #5C5C5C;
             font-weight: bold;
+            margin: 0 auto;
 
             width: 303px;
             height: 84px;
             line-height: 84px;
             text-align: center;
+            .login-title-image{
+                width: 244px;
+                object-fit: contain;
+            }
         }
     
         .login-box{

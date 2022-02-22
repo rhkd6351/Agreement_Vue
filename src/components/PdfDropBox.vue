@@ -42,11 +42,15 @@ export default {
 
     methods: {
         postPdf(file){
+            window.document.body.style.cursor = "wait";
             postProject(file).then((res) => {
                 this.$store.dispatch("fetchProjects", 0);
+                window.document.body.style.cursor = "auto";
             }).catch((err) => {
                 alert("파일 업로드에 실패하였습니다.");
+                window.document.body.style.cursor = "auto";
             })
+
         },
 
         onFileChangeHandler(event){

@@ -1,4 +1,9 @@
-import { getProject, postSubmitteeProject, saveObjects, changeTitle } from "../api/projectAPI";
+import {
+  getProject,
+  postSubmitteeProject,
+  saveObjects,
+  changeTitle,
+} from "../api/projectAPI";
 
 const editor = {
   state: {
@@ -66,6 +71,7 @@ const editor = {
       state.add_count += 1;
       signObject.local_idx = state.add_count;
       signObject.name += `_${state.add_count}`;
+      duplicateCheck(state.sign_objects, signObject);
       state.sign_objects.push(signObject);
     },
 
@@ -89,6 +95,7 @@ const editor = {
       for (let i = 0; i < state.sign_objects.length; i++) {
         if (signObject.local_idx == state.sign_objects[i].local_idx) {
           state.sign_objects.splice(i, 1, signObject);
+          duplicateCheck(state.sign_objects, signObject);
           return;
         }
       }
@@ -203,9 +210,7 @@ const editor = {
           break;
       }
     },
-    makeJsonForm(){
-
-    },
+    makeJsonForm() {},
     async saveData(context) {
       return await new Promise((resolve, reject) => {
         saveObjects(context.state.editing_project.name, {
@@ -225,8 +230,17 @@ const editor = {
             reject(err);
           });
       });
-    }
+    },
   },
+};
+
+const duplicateCheck = (signObjects, signObject) => {
+  signObjects.map((em) => {
+    if (em.name == signObject.name && em.local_idx != signObject.local_idx) {
+      signObject.name += "*";
+      duplicateCheck(signObjects, signObject);
+    }
+  });
 };
 
 export { editor };

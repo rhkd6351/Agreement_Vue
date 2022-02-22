@@ -101,6 +101,7 @@ export default {
     }
     .close-button {
         color: #F3F3F3;
+        margin: auto;
 
         &:hover{
             transition-duration: 0.2s;
@@ -111,6 +112,7 @@ export default {
     .complete-button{
         color: #5C5C5C;
         background-color: #F3F3F3;
+        margin: auto;
 
         &:hover{
             transition-duration: 0.2s;

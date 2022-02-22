@@ -7,7 +7,9 @@
             </div>
             <div v-else>
                 <div class="login-title">
-                    서비스명
+                    <img 
+                        class="login-title-image"
+                        src="@/images/logo_text.png" alt="">
                 </div>
                 <div class="login-description">
                     학번과 학생이름을 입력하고 문서 작성을 시작해주세요.
@@ -63,7 +65,7 @@
                 })
                 .catch(function (error) {
                     console.log(error);
-                    this.state = 0;
+                    self.state = 0;
                 }
             );
         },
@@ -109,6 +111,10 @@
             height: 84px;
             line-height: 84px;
             text-align: center;
+            .login-title-image{
+                width: 244px;
+                object-fit: contain;
+            }
         }
 
         .login-description{

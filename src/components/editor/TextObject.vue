@@ -12,7 +12,7 @@
       </div>
       <div class="object-box"
       :id="'object_' + this.propKey"
-      @mouseup="onTextMouseUpHandler"
+      @click="onTextMouseUpHandler"
       :style="shapeObject"
       >
       </div>
@@ -86,6 +86,7 @@ export default {
   top: 150px;
   left: 100px;
   cursor: pointer;
+  pointer-events: auto;
 
   .object-name{
     color: #5c5c5c;

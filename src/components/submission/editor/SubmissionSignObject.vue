@@ -24,7 +24,7 @@ export default {
     propKey: Number
   },
 
-  mounted(){
+  async mounted(){
 
     this.positionObject = {
       top: `${this.object.y_position}px`,
@@ -40,10 +40,18 @@ export default {
     }
     else{
       let url = this.object.submittee_object_sign_img.url;
+      const response = await fetch(`https://sign.u-class.co.kr${url}`);
+      const data = await response.blob();
+      const filename = this.object.name
+      const metadata = { type: `image/png` };
+      const file = new File([data], filename, metadata);
+
+      const dataUrl = URL.createObjectURL(file);
+
       this.shapeObject = {
         width: `${this.object.width}px`,
         height: `${this.object.height}px`,
-        backgroundImage: `url(https://sign.u-class.co.kr${url})`
+        backgroundImage: `url(${dataUrl})`
       }
     }
   },

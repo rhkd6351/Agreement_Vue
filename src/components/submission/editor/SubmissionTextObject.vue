@@ -43,7 +43,8 @@ export default {
       border: 'none',
       outline: '0 solid transparent',
       resize: 'none',
-      lineHeight: '20px'
+      lineHeight: '20px',
+      wordBreak:' break-all'
     }
   },
   methods: {
@@ -67,6 +68,7 @@ export default {
     font-size: 12px;
     font-weight: bold;
   }
+
 
   .object-box :read-only{
     position: absolute;
