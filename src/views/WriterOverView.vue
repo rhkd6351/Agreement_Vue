@@ -20,6 +20,10 @@ export default {
             this.$router.push("/writer/submission/" + projectName + "/login");
         }
     },
+    
+    unmounted() {
+        this.$store.commit("INITIALIZE_SUBMISSION");
+    }
 }
 </script>
 <style lang="scss" scoped>

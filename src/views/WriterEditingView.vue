@@ -78,12 +78,7 @@ export default {
         await this.$nextTick();
         const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
         this.$store.dispatch("fetchSubmitterProject", projectName);
-    },
-
-
-    unmounted() {
-        this.$store.commit("INITIALIZE_OBJECTS");
-    },
+    }
 }
 </script>
 
