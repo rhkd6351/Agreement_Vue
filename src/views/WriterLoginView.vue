@@ -65,7 +65,7 @@
                 })
                 .catch(function (error) {
                     console.log(error);
-                    this.state = 0;
+                    self.state = 0;
                 }
             );
         },
