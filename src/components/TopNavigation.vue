@@ -1,6 +1,8 @@
 <template>
       <div id="top-nav">
-        <div class="top-nav-left">서비스 로고</div>
+        <div class="top-nav-left">
+            <img class="top-nav-left-image" src="@/images/logo.png" alt="">
+        </div>
         <div class="top-nav-center">
             <input 
             v-if="projectTitle"
@@ -86,10 +88,19 @@ export default {
     min-width: 1140px;
     
     .top-nav-left{
-        width: 280px;
         font-size: 32px;
         color: white;
         font-weight: 700;
+        line-height: 84px;
+        .top-nav-left-image{
+            width: 300px;
+            height: 60px;
+            object-fit: contain;
+            overflow: hidden;
+            margin-top: auto;
+            vertical-align:middle;
+            filter: invert(100%);
+        }
     }
 
     .top-nav-center{

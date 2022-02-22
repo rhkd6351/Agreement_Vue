@@ -31,6 +31,29 @@ export const objectMixin = {
     onTextMouseUpHandler(event) {
       let quotient = this.shapeObject.height / 20;
       this.shapeObject.height = `${20 * Math.round(quotient)}px`;
+
+      const pdfLayer = window.getComputedStyle(
+        document.getElementsByClassName("pdf-layer")[this.object.page - 1]
+      );
+      const pdfHeight = pdfLayer.height.split("px")[0];
+      const pdfWidth = pdfLayer.height.split("px")[0];
+      console.log(this.positionObject.left.split("px")[0]);
+      if (
+        this.positionObject.left.split("px")[0] +
+          this.shapeObject.width.split("px")[0] >
+        pdfWidth
+      ) {
+        this.shapeObject.width =
+          pdfWidth - this.positionObject.width.split("px")[0];
+      }
+      if (
+        this.positionObject.top.split("px")[0] +
+          this.shapeObject.height.split("px")[0] >
+        pdfHeight
+      ) {
+        this.shapeObject.height =
+          pdfHeight - this.positionObject.top.split("px")[0];
+      }
     },
 
     onSignMouseUpHandler(event) {

@@ -13,6 +13,7 @@
             @click="onPdfClickHandler(index+1, $event)"
             >
                 <pdf 
+                class="pdf-box"
                 :src="`https://sign.u-class.co.kr/api/projects/pdf/${project.pdf.name}`"
                 :page="index + 1"
                 @page-loaded="pageLoaded"
@@ -155,7 +156,6 @@ export default {
         },
 
         pageLoaded(){
-            // console.log(number);
             console.log("wow");
         }
     },
@@ -190,6 +190,7 @@ export default {
         position: relative;
         margin-bottom: 40px;
         background-color: white;
+        // overflow: hidden;
 
         .object{
             z-index: 4;

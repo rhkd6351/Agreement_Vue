@@ -100,7 +100,7 @@ export default {
     // resize: both;
     overflow: hidden;
     background-image: url('../../images/underline.png');
-    z-index: 100;
+    z-index: 99999;
   }
   .button-wrapper{
     width: 30px;
