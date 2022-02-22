@@ -70,7 +70,7 @@
         methods: {
             goWritingPage() {
                 //정규식으로 유효성 검사 실시.
-                if (/^[0-9_-]{1,8}$/.test(this.submitter.student_id) && /^[ㄱ-ㅎ가-힣]{2,4}$/.test(this.submitter.student_name)) {
+                if (/^[0-9_-]{1,8}$/.test(this.submitter.student_id) && /^[가-힣]{2,4}$/.test(this.submitter.student_name)) {
                     this.$router
                         .push({
                                 path: "/writer/submission/" + this.submissionName + "/edit",
