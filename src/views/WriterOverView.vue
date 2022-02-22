@@ -10,7 +10,7 @@ import WriteOverPdfViewer from '../components/writer/WriteOverPdfViewer.vue'
 export default {
     computed: {
         submitter(){
-        return this.$store.state.submitter.submitter;
+            return this.$store.state.submitter.submitter;
         }
     },
     components: { WriteOverPdfViewer },
@@ -19,6 +19,8 @@ export default {
             const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
             this.$router.push("/writer/submission/" + projectName + "/login");
         }
+        window.onPopState(() => {this.$router.push("/writer/submission/" + projectName + "/login");}) 
+        window.onHashUpdate(() => {this.$router.push("/writer/submission/" + projectName + "/login");})
     },
     
     unmounted() {
