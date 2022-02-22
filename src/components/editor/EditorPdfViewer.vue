@@ -181,8 +181,7 @@ export default {
     .render-box{
         width: 1050px;
         // height: calc(100% - 41px);
-        margin: 41px auto 41px auto;
-
+        margin: 41px auto 41px auto;   
         background-color: #F3F3F3;
     }
 
@@ -190,6 +189,7 @@ export default {
         position: relative;
         margin-bottom: 40px;
         background-color: white;
+        pointer-events: none;
         // overflow: hidden;
 
         .object{

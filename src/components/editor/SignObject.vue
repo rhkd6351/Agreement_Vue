@@ -88,6 +88,7 @@ export default {
   top: 150px;
   left: 100px;
   cursor: pointer;
+  pointer-events: auto;
 
   .object-name{
     color: #5c5c5c;
