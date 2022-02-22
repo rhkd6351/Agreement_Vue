@@ -146,6 +146,8 @@ export default {
                 x_position: event.offsetX,
                 y_position: event.offsetY,
             }
+
+
             this.$store.dispatch("addNewObject", {
                 type: type,
                 page: page,
