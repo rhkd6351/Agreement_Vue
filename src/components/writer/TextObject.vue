@@ -130,6 +130,7 @@ export default {
   opacity: 0.999;
   top: 150px;
   left: 100px;
+  font-size: 14px;
   cursor:text;
 
   .object-name{
@@ -145,6 +146,7 @@ export default {
     background-color: #DADADA;
     border: 1px solid #767676;
     background-image: url('../../images/underline.png');
+    font-size: 14px;
   }
   .long-text-area{
     -ms-ime-mode: active;
@@ -155,6 +157,7 @@ export default {
     line-height: 20px;
     text-align: left;
     outline: 0 solid transparent;
+    font-size: 14px;
   }
 }
 

@@ -87,6 +87,7 @@ export default {
   left: 100px;
   cursor: pointer;
   pointer-events: auto;
+  font-size: 14px;
 
   .object-name{
     color: #5c5c5c;
@@ -105,6 +106,7 @@ export default {
     overflow: hidden;
     background-image: url('../../images/underline.png');
     z-index: 99999;
+    font-size: 14px;
   }
   .button-wrapper{
     width: 30px;

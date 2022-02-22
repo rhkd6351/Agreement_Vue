@@ -38,13 +38,15 @@ export default {
     };
 
     this.shapeObject = {
+      ...this.shapeObject,
       width: `${this.object.width}px`,
       height: `${this.object.height}px`,
       border: 'none',
       outline: '0 solid transparent',
       resize: 'none',
       lineHeight: '20px',
-      wordBreak:' break-all'
+      wordBreak:' break-all',
+      border: "1px solid transparent"
     }
   },
   methods: {
@@ -62,6 +64,7 @@ export default {
   opacity: 0.999;
   top: 150px;
   left: 100px;
+  font-size: 14px;
 
   .object-name{
     color: #5c5c5c;
@@ -79,6 +82,7 @@ export default {
     text-align: left;
     outline: 0 solid transparent;
     word-break: break-all;
+    border: 1px solid transparent;
     // background-image: url('../../../images/underline.png');
   }
 
