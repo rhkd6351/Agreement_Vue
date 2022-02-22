@@ -14,7 +14,7 @@
           v-bind:id="'long-text-area '+object.local_idx"
           contenteditable="true"
           lang="ko"
-          @keydown="limitText"></div>
+          @input="limitText"></div>
         <div 
         @click="focusText" 
         :style="textPoint"></div>
@@ -55,9 +55,6 @@ export default {
       width: `${this.object.width}px`,
       height: `${this.object.height}px`,
     }
-
-    let ResizeSensor = require('css-element-queries/src/ResizeSensor');
-    const box = document.getElementById('object_' + this.propKey);
   },
   methods: {
     limitText(event) {
@@ -104,6 +101,8 @@ export default {
         if(parseInt(longTextAreaHeight.height, 10) >= tBoxHeight) 
           clearInterval(incrementEveryOneSecond);
       }, 10); 
+      const ele = event.target;
+      this.object.content = ele.innerHTML;
     },
     focusText(){
       let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
