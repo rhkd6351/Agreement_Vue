@@ -42,7 +42,8 @@ export default {
       height: `${this.object.height}px`,
       border: 'none',
       outline: '0 solid transparent',
-      resize: 'none'
+      resize: 'none',
+      wordBreak:' break-all'
     }
   },
   methods: {
@@ -66,6 +67,7 @@ export default {
     font-size: 12px;
     font-weight: bold;
   }
+
 
   .object-box :read-only{
     position: absolute;
