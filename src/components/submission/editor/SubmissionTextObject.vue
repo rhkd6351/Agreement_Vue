@@ -77,7 +77,7 @@ export default {
     line-height: 20px;
     text-align: left;
     outline: 0 solid transparent;
-    word-break:break-all;
+    word-break: break-all;
     // background-image: url('../../../images/underline.png');
   }
 

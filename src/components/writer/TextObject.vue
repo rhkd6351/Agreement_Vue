@@ -8,7 +8,6 @@
       <div class="object-box"
       :id="'object_' + this.propKey"
       :style="shapeObject"
-      @click="focusText"
       >
         <span
           class="long-text-area"
@@ -16,6 +15,10 @@
           contenteditable="true"
           lang="ko"
           @keydown="limitText"></span>
+        <div 
+        v-bind:id="'long-text-area-control '+object.local_idx"
+        @click="focusText" 
+        :style="textPoint"></div>
       </div>
   </div>
 </template>
@@ -30,6 +33,16 @@ export default {
   props: {
     object: Object,
     propKey: Number
+  },
+
+  data(){
+    return {
+      textPoint: {
+        position: 'absolute',
+        width: `${this.object.width}px`,
+        height: `${this.object.height}px`,
+      }
+    }
   },
 
   mounted(){
@@ -66,6 +79,10 @@ export default {
       event = event || window.event;
       let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
       let tBoxHeight = tBox.scrollHeight;
+      this.textPoint = {
+        ...this.textPoint,
+        height: `${this.object.height - tBoxHeight}px`
+      }
       let self = this;
       if(parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8){
         if (event.keyCode === 13) { //Enter key's keycode
