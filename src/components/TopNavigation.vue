@@ -16,7 +16,7 @@
                     <h5>{{submissionTitle}} 문서를 제출완료했습니다.</h5>
                 </span>
             </div>
-            <div v-else>
+            <div v-else-if="writeOverPath==='edit'">
                 {{submissionTitle}}
             </div>
         </div>

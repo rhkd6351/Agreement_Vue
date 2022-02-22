@@ -60,7 +60,6 @@
                     console.log(response.data);
                     self.state = response.data.state;
                     self.project = response.data;
-                    this.$store.commit("SET_DOCUMENT_TITLE", response.data.title);
                 })
                 .catch(function (error) {
                     console.log(error);
