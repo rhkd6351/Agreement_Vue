@@ -49,21 +49,6 @@ export default {
       top: `${this.object.y_position}px`,
       left: `${this.object.x_position}px`,
     };
-
-    let ResizeSensor = require('css-element-queries/src/ResizeSensor');
-    const box = document.getElementById('object_' + this.propKey);
-    new ResizeSensor(box, (e) => {
-      this.shapeObject = {
-        width: e.width,
-        height: e.height
-      }
-
-      this.$store.commit("UPDATE_SIGN_OBJECT", {
-        ...this.object,
-        width: this.shapeObject.width,
-        height: this.shapeObject.height
-      })
-    })
   }
 }
 </script>

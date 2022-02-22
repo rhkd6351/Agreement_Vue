@@ -9,14 +9,13 @@
       :id="'object_' + this.propKey"
       :style="shapeObject"
       >
-        <span
+        <div
           class="long-text-area"
           v-bind:id="'long-text-area '+object.local_idx"
           contenteditable="true"
           lang="ko"
-          @keydown="limitText"></span>
+          @keydown="limitText"></div>
         <div 
-        v-bind:id="'long-text-area-control '+object.local_idx"
         @click="focusText" 
         :style="textPoint"></div>
       </div>
@@ -59,16 +58,6 @@ export default {
 
     let ResizeSensor = require('css-element-queries/src/ResizeSensor');
     const box = document.getElementById('object_' + this.propKey);
-    new ResizeSensor(box, (e) => {
-      this.shapeObject = {
-        width: e.width,
-        height: e.height
-      }
-
-      this.$store.commit("UPDATE_TEXT_OBJECT", {
-        ...this.object, width: this.shapeObject.width, height: this.shapeObject.height
-      })
-    })
   },
   methods: {
     limitText(event) {
@@ -76,7 +65,6 @@ export default {
       let longTextAreaHeight = window.getComputedStyle(longTextArea);
       this.object.content = event.target.innerHTML;
       console.log(event.target.innerHTML);
-      event = event || window.event;
       let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
       let tBoxHeight = tBox.scrollHeight;
       this.textPoint = {
@@ -84,10 +72,14 @@ export default {
         height: `${this.object.height - tBoxHeight}px`
       }
       let self = this;
-      if(parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8){
-        if (event.keyCode === 13) { //Enter key's keycode
+      if(event.keyCode === 13){
+        console.log("run");
+      }
+      if(parseInt(longTextAreaHeight.height, 10) <= tBoxHeight){
+        if(event.which === 13){
           event.preventDefault();
-        }
+          console.log("run")
+        };
       }
       let incrementEveryOneSecond = setInterval(function(){
         let tBox = document.getElementById('long-text-area ' + self.object.local_idx);
@@ -95,6 +87,7 @@ export default {
         if(parseInt(longTextAreaHeight.height, 10) < tBoxHeight && event.keyCode != 8){
           if (event.keyCode === 13) { //Enter key's keycode
             event.preventDefault();
+            console.log("run");
           }
           else{
             const ele = event.target;

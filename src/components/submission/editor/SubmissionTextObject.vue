@@ -42,7 +42,8 @@ export default {
       height: `${this.object.height}px`,
       border: 'none',
       outline: '0 solid transparent',
-      resize: 'none'
+      resize: 'none',
+      lineHeight: '20px'
     }
   },
   methods: {

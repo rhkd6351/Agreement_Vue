@@ -44,6 +44,23 @@ export default {
 
   mounted(){
 
+    let ResizeSensor = require('css-element-queries/src/ResizeSensor');
+    const box = document.getElementById('object_' + this.propKey);
+    new ResizeSensor(box, (e) => {
+      
+      this.shapeObject = {
+        ...this.shapeObject,
+        width: e.width - 2,
+        height: e.height - 2
+      }
+
+      this.$store.commit("UPDATE_TEXT_OBJECT", {
+        ...this.object,
+        width: this.shapeObject.width,
+        height: this.shapeObject.height
+      })
+    })
+    
     this.positionObject = {
       top: `${this.object.y_position}px`,
       left: `${this.object.x_position}px`,
@@ -54,23 +71,9 @@ export default {
       height: `${this.object.height}px`,
       resize: `${this.isEditable ? 'both' : ''}`
     }
-
-    let ResizeSensor = require('css-element-queries/src/ResizeSensor');
-    const box = document.getElementById('object_' + this.propKey);
-    new ResizeSensor(box, (e) => {
-      this.shapeObject = {
-        ...this.shapeObject,
-        width: e.width,
-        height: e.height
-      }
-
-      this.$store.commit("UPDATE_TEXT_OBJECT", {
-        ...this.object,
-        width: this.shapeObject.width,
-        height: this.shapeObject.height
-      })
-    })
   }
+
+  
 
 }
 </script>
