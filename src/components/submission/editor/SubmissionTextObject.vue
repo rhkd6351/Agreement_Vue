@@ -43,6 +43,7 @@ export default {
       border: 'none',
       outline: '0 solid transparent',
       resize: 'none',
+      lineHeight: '20px',
       wordBreak:' break-all'
     }
   },
