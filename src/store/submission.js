@@ -116,6 +116,7 @@ const submission = {
       state.checkbox_objects = [];
       state.sign_objects = [];
       state.add_count = 0;
+      state.sign_url_save_file = [];
     },
   },
   

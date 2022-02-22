@@ -25,10 +25,14 @@ export default {
   },
   methods: {
     closeBtn(){
+      /*
       window.close();
       self.close();
       window.opener = window.location.href; self.close();
       window.open('about:blank', '_self').close();
+      */
+      const projectName = this.$router.currentRoute.value.fullPath.split("/")[3];
+      this.$router.push("/writer/submission/" + projectName + "/login");
     },
     //페이지간에 간격값을 구해내서 해당 값만큼 pdf를 찍어낼때 제외하고 계산하도록.
     getPaddingData(){
