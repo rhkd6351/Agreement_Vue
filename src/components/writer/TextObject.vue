@@ -8,6 +8,7 @@
       <div class="object-box"
       :id="'object_' + this.propKey"
       :style="shapeObject"
+      @click="focusText"
       >
         <span
           class="long-text-area"
@@ -93,6 +94,21 @@ export default {
         if(parseInt(longTextAreaHeight.height, 10) >= tBoxHeight) 
           clearInterval(incrementEveryOneSecond);
       }, 10); 
+    },
+    focusText(){
+      let tBox = document.getElementById('long-text-area ' + this.object.local_idx);
+      const newRange = document.createRange();
+      if(tBox.childNodes[0] === undefined){
+        newRange.setStart(tBox, 0);
+        newRange.setEnd(tBox, 0);
+      }
+      else{
+        newRange.setStart(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+        newRange.setEnd(tBox.childNodes[tBox.childNodes.length - 1], tBox.childNodes[tBox.childNodes.length - 1].length);
+      }
+      const selection = document.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(newRange);
     }
   }
 }
@@ -105,6 +121,7 @@ export default {
   opacity: 0.999;
   top: 150px;
   left: 100px;
+  cursor:text;
 
   .object-name{
     color: #5c5c5c;

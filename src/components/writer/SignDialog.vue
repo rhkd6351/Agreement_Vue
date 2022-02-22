@@ -224,16 +224,11 @@
             },
             close() {
                 this.$store.state.submission.sign_dialog_show = false;
-                let myImage = document.getElementById(this.signDialogData.name);
-                myImage.remove();
+                //let myImage = document.getElementById(this.signDialogData.name);
                 this.onClear();
             },
             isCanvasBlank(canvas) {
-                return !canvas
-                    .getContext('2d')
-                    .getImageData(0, 0, canvas.width, canvas.height)
-                    .data
-                    .some(channel => channel !== 0);
+                return !canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data.some(channel => channel !== 0);
             }
         }
     }

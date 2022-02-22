@@ -53,6 +53,7 @@
             }
         },
         mounted(){
+            this.$store.commit("INITIALIZE_SUBMISSION");
             let self = this;
             getSubmitteeProject(this.$route.params.submissionName)
                 .then(function (response) {
